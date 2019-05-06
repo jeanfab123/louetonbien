@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Gérer les catégories
+{% endblock title %}
+
+{% block body %}
+
+<h1>Gérer les catégories</h1>
+<div class="container mt-4">
+
+    <table class="table table-striped">
+        <thead></thead>
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.name }}</td>
+            <td>{{ category.description }}</td>
+            <td><a href="{{ path('admin.category.edit', {id: category.id}) }}" class="btn btn-secondary">Editer</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock %}
