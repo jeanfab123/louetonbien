@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Repository\CategoryRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Category;
 use App\Form\CategoryType;
 
@@ -39,9 +39,12 @@ class AdminCategoryController extends AbstractController
     public function edit(Category $category)
     {
         $form = $this->createForm(CategoryType::class);
-        return $this->render('admin/category/edit.html.twig', [
-            'category' => $category,
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'admin/category/edit.html.twig',
+            [
+                'category' => $category,
+                'form' => $form->createView()
+            ]
+        );
     }
 }

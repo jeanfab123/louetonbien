@@ -3,14 +3,14 @@
 namespace App\Controller\Admin;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
 
     /**
      * @Route("/admin", name="admin.index")
-     * @return                   \Symfony\Component\HttpFoundation\Response
+     * @return          \Symfony\Component\HttpFoundation\Response
      */
     public function index()
     {
