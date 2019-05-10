@@ -32,7 +32,8 @@ Gérer les catégories
             <td>
                 <a href="{{ path('admin.category.edit', {id: category.id}) }}" class="btn btn-secondary">Editer</a>
                 <form method="post" action="{{ path('admin.category.delete', {id: category.id})}}"
-                    style="display:inline-block">
+                    style="display:inline-block"
+                    onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet élémént ?')">
                     <input type="hidden" name="_method" value="DELETE" />
                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}" />
                     <button class="btn btn-danger">Supprimer</button>
