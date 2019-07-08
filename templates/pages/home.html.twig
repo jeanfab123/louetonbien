@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Bienvenue !
+Bienvenue sur le site {{sitename}} !
 {% endblock title %}
+
+{% block h1 %}
+Bienvenue sur {{sitename}} !
+{% endblock %}
+
+{% block subtitle %}
+Que ce soit du matériel High Tech, de bricolage, de jardinage ou autres, vous pourrez le mettre en location sur
+{{sitename}} !
+{% endblock %}
 
 {% block body %}
 
-<div class="jumbotron text-center">
-    <h1>Bienvenue</h1>
-    <p>
-        Louez votre bien sur notre site afin de gagner de l'argent rapidement et facilement !
-    </p>
-</div>
-
-<div class="container">
-
-</div>
+<p>Louez votre bien sur notre site afin de gagner de l'argent rapidement et facilement !</p>
 
 {% endblock %}

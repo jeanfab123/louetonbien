@@ -10,6 +10,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Category
 {
@@ -34,6 +35,46 @@ class Category
      * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="category")
      */
     private $items;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Rubric", inversedBy="category")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $rubric;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
+    }
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeCreatedAt()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function __construct()
     {
@@ -93,6 +134,42 @@ class Category
             $this->items->removeElement($item);
             $item->removeCategory($this);
         }
+
+        return $this;
+    }
+
+    public function getRubric(): ?Rubric
+    {
+        return $this->rubric;
+    }
+
+    public function setRubric(?Rubric $rubric): self
+    {
+        $this->rubric = $rubric;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

@@ -7,9 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RubricRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class Item
+class Rubric
 {
     /**
      * @ORM\Id()
@@ -19,29 +20,49 @@ class Item
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\category", inversedBy="items")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\category", mappedBy="rubric")
      */
     private $category;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\ManyToMany(targetEntity="App\Entity\Area", inversedBy="rubric")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $modifiedAt;
+    private $area;
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->title);
+        }
+    }
 
     /**
      * @ORM\PrePersist
@@ -53,16 +74,6 @@ class Item
         $this->createdAt = new \DateTime();
     }
 
-    /**
-     * @ORM\PreUpdate
-     * 
-     * @return void
-     */
-    public function initializeModifiedAt()
-    {
-        $this->modifiedAt = new \DateTime();
-    }
-
     public function __construct()
     {
         $this->category = new ArrayCollection();
@@ -71,6 +82,18 @@ class Item
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     public function getName(): ?string
@@ -90,21 +113,21 @@ class Item
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getSlug(): ?string
     {
-        return $this->createdAt;
+        return $this->slug;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setSlug(string $slug): self
     {
-        $this->createdAt = $createdAt;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -121,6 +144,7 @@ class Item
     {
         if (!$this->category->contains($category)) {
             $this->category[] = $category;
+            $category->setRubric($this);
         }
 
         return $this;
@@ -130,19 +154,23 @@ class Item
     {
         if ($this->category->contains($category)) {
             $this->category->removeElement($category);
+            // set the owning side to null (unless already changed)
+            if ($category->getRubric() === $this) {
+                $category->setRubric(null);
+            }
         }
 
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getArea(): ?Area
     {
-        return $this->modifiedAt;
+        return $this->area;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    public function setArea(?Area $area): self
     {
-        $this->modifiedAt = $modifiedAt;
+        $this->area = $area;
 
         return $this;
     }

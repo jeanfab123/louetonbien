@@ -1,0 +1,663 @@
+Bricolage
+
+    Outillage
+
+        Scies à métaux
+        Scies à bois
+        Scies sauteuses
+        Scies sabres
+        Perceuses
+        Ponceuses
+        Pistolets à peinture
+        Serres-joints
+        Perforateurs
+        Découpeuses
+        Maçonnerie [chantier-btp]
+        Visseuses dévisseuses
+        Clés
+        Tournevis
+        Pinces
+        Tenailles
+        Rabots électriques
+        Echelles
+        Escabeaux
+        Matériel de forage [chantier-btp]
+        Etablis
+        Marteaux
+        Masses
+        Maillets
+        Tourets
+        Tire fort
+        Pelles [jardinage]
+        Cisailles / Massicots
+        Cutters / Scalpels / Ciseaux
+        Limes / Rapes
+        Pistolets à colle
+        Haches [jardinage]
+        Seaux [jardinage]
+        Fourches [jardinage]
+        Rallonges électriques
+        Multiprises
+        Enrouleurs électriques
+        Décolleuses
+        Décapeuses
+        Cloueuses
+        Agrafeuses
+        Lisseuses
+        Cireuses
+        Bordureuses
+        Talocheuses
+
+    Nettoyage / Entretien
+
+        Aspirateurs eau et poussière
+        Nettoyeurs haute pression
+        Shampouineuses [menage]
+
+    Jardinage
+
+        Taille-haies
+        Tondeuses à gazon
+        Motoculteurs
+        Tronçonneuses 
+        Débroussailleuses
+        Broyeurs
+        Scarificateurs
+        Souffleurs à feuilles
+        Semoirs
+        Tarières
+        Grelinettes
+        Trancheuses
+        Pulvérisateurs
+        Arroseurs
+        Désherbeurs thermiques / électriques
+        Tracteurs
+
+    Appareils de détection
+
+        Détecteurs de métaux
+        Détecteurs thermiques / Contrôleurs d'isolement
+        Détecteurs de cables électriques / canalisations / matériaux
+        Détecteurs de mouvement
+        Détecteurs de courant électrique / Ampèremètres / Wattmètres
+        Caméras thermiques
+        Caméras d'inspection / Endoscopes
+        Autres appareils de détection
+
+    Appareils de mesure / Testeurs
+
+        Mètres
+        Télémètres
+        Pieds à coulisse
+        Niveaux laser
+        Multimètres
+        Oscilloscopes
+        Sondeurs bathymétriques
+        Compressiomètres
+        Sonomètres
+        Hygromètres
+        Théodolites
+        Magnétomètres
+        Mégohmmètres
+        Compteurs Geiger
+        Odomètres / Compteurs kilomètriques
+        Autres appareils de mesure
+
+    Chantier / BTP
+
+        Bétonnières
+        Compresseurs
+        Marteaux-piqueurs
+        Pelleteuses
+        Chargeuses
+        Compacteuses
+        Mobilier de chantier
+        Aiguilles vibrantes
+        Dumpers
+        Sableuses
+        Trancheuses de sol
+        Règles [outillage]
+        Equerres [outillage]
+        Engins / Véhicules de chantier
+        Excavatrices
+        Tiges portes taillants
+        Eclairage de chantier
+        Groupes électrogènes
+        Casques de chantier
+        Chaussures / Bottes de sécurité
+        Bleus de travail
+        Echaffaudages
+        Bâches
+        Harnais de sécurité anti chute
+
+    Manutention
+
+        Diables
+        Lèves-matériaux
+        Chariots
+        Brouettes [jardinage]
+        Transpalettes
+        Grues
+        Convoyeurs
+        Treuils
+        Palans
+
+    Soudure / Plomberie
+
+        Groupes de soudure
+        Chalumeaux
+        Cintreuses
+        Plieuses à zinc
+        Obturateurs de canalisation
+        Gèle-tubes
+        Détartrage
+        Masques / Lunettes de soudure
+
+    Soudure électrique / électronique
+
+        Fers à souder
+        Postes de soudure électrique
+
+High-Tech
+
+    Photo / Prise de vue
+
+        Compacts numériques
+        Reflex numériques
+        Objectifs
+        Studio photo / Accessoires de lumière
+        Compacts argentiques
+        Supports photo / Trépieds
+        Reflex argentiques
+        Filtres Photo
+        Polaroids / Instantanés
+        Viseurs
+        Sondes de calibration photo
+        Instruments de mesure photo
+        Stabilisateurs
+        Sliders
+        Déclencheurs à distance
+        Cartes mémoire
+        Jumelles
+        Longues-vues
+        Télescopes
+        Oculaires
+        Camescopes
+        Caméras pro
+        Caissons étanches
+        Drones professionnels [modelisme]
+
+    HiFi/Vidéo
+
+        Vidéoprojecteurs
+        Ecrans de vidéoprojection
+        Téléviseurs
+        Lecteurs DVD
+        Lecteurs Bluray
+        Home Cinema
+        Satellite
+        Chaînes HiFi
+        Platines vinyle
+        Manges disques
+        Amplis HiFi
+        Casques audio HiFi
+        Lecteurs MP3
+        Lecteurs DVD pour voitures [accessoires-auto]
+
+    Téléphonie / Communication
+
+        Téléphones fixes
+        Smartphones
+        Tablettes [informatique]
+        Standards téléphoniques
+        Talkies-Walkies
+        PABX
+
+    Informatique
+
+        Ordinateurs portables
+        Ordinateurs de bureau
+        Imprimantes
+        Imprimantes 3D
+        Ecrans de PC
+        Scanners
+        Routeurs
+        Disques durs externes
+        Graveurs
+        Clés USB
+        Photocopieuses
+        Souris
+        Claviers
+        Webcams
+        Micros
+        Micro-casques de bureau
+        Cartes graphiques
+
+    Jeux vidéos
+
+        Consoles de salon
+        Consoles portables
+        Bornes d'arcade [jeux-darcade]
+        Jeux
+        Joypads
+        Joysticks
+        Manettes d'arcade [jeux-darcade]
+        Volants de jeux de course
+        Pistolets de jeux vidéos
+        Tapis de jeux vidéos
+        Instruments de musique pour jeux vidéos
+        Casques de gamer
+        Casques VR
+        Fauteuils de gamer
+        Bureaux de gamer
+        Enregistreurs de live streaming
+        Autres accessoires de jeu
+
+    GPS
+
+        GPS de voiture
+        GPS de poids lourd
+        GPS de randonnée
+        GPS de moto
+        Trackers GPS
+
+Maison
+
+    Electroménager
+
+        Réfrigérateur
+        Congélateurs
+        Robots cuiseur
+        Machines à café
+        Plaques de cuisson
+        Lave-linges
+        Gaufriers
+        Grille-pains
+        Lave-vaisselles
+        Cuiseurs vapeur
+        Mixeurs
+        Centrifugeuses
+        Appareils à raclette
+        Machines à crêpes
+        Barbe à papa / Pop Corn
+        Barbecues
+        Appareils à fondue
+        Fontaines à chocolat
+        Pierrades / Grills
+        Tireuses à bière
+        Trancheuses
+        Machines à glace
+        Machines à glaçon
+        Machines à Hot-Dog
+        Thermoverseurs
+        Salamandres
+        Balances de cuisine
+
+    Traitement de l'air
+
+        Ventilateurs
+        Climatiseurs
+        Humidificateurs d'air
+        Deshumidificateurs d'air
+
+    Ustensiles de cuisine
+
+        Casserolles
+        Presse-agrumes
+
+    Ménage
+
+        Aspirateurs à main
+        Aspirateurs robot
+        Nettoyeurs vapeur
+
+    Linge de maison
+
+        Repassage
+        Machines à coudre
+        Machines à tricoter
+
+    Bébé
+
+        Poussettes
+        Lits bébé
+        Sièges auto bébé [automobile]
+        Porte bébé
+        Toilette bébé
+        Jeux d'éveil bébé
+        Transats bébé
+        Sièges de table / Réhausseurs
+        Chaises haute
+        Babycook [electromenager]
+        Balancelles
+        Mobiles bébé
+        Trotteurs
+        Parcs bébé
+        Landaux
+        Nacelles bébé
+        Vêtements de grossesse
+        Babyphones
+        Tires lait
+        Berceaux
+        Tentes de plage bébé
+        Coussins d'allaitement
+        Autres accessoires bébé
+
+Sport / Loisirs
+
+    Sports d'hiver
+
+    Sports de glisse
+
+        Ski [sports-dhiver]
+        Snowboard [sports-dhiver]
+        Roller
+        Skaterboard
+        Patinage [sports-dhiver]
+        Gilets airbag de ski
+
+    Nautique / Aquatique
+
+        Ski nautique [sports-de-glisse]
+        Surf nautique [sports-de-glisse]
+        Wakeboard [sports-de-glisse]
+        Kitesurf [sports-de-glisse]
+        Planche à voile [sports-de-glisse]
+        Plongée
+        Bateaux à moteur
+        Canoe kayak
+        Voiliers
+        Scooters des mers
+        Péniches
+        Yachts
+        Bateaux pneumatiques
+        Aviron
+        Barques
+        Pédalos
+        Chars à voile
+        Rafting [sports-extremes]
+
+    Sports extrêmes
+
+    Sports de tir
+
+        Paintball
+
+    Sports collectifs
+
+        Football
+        Basket-ball
+        Handball
+        Rugby
+        Volley-ball
+        Baseball
+        Hockey sur glace [sports-de-glisse]
+        Hockey sur gazon [sports-de-glisse]
+        Water-Polo
+
+    Sports équestres
+
+        Selles de cheval
+        Combinaisons équestres
+        Bombes
+        Cravaches
+        Gilets airbag
+        Chariots porte selle
+        Coffrets de pansage
+        Chevaux
+        Ecuries
+        Tondeuses pour cheval
+
+    Vélos / Trotinettes / Gyros
+
+        VTT
+        Vélos de course
+        Vélos de ville
+        Vélos électriques
+        Trotinettes sans moteur
+        Trotinettes éléctriques [motos-scooters]
+        Gyropodes
+        Gyroroues
+        Tandems
+        Tricycles
+        BMX
+        Vélos pliables
+        Accessoires 2 roues
+
+    Sports de raquette
+
+        Tennis
+        Badmington
+        Squash
+        Ping Pong
+        Jeux de paume
+
+    Sports de précision
+
+        Golf
+        Fléchettes [sports-de-tir]
+        Billard / Snooker
+        Pétanque
+        Tir à l'arc [sports-de-tir]
+        Bowling
+        Criquet
+        Curling [sports-dhiver|sports-dequipe]
+
+    Aventure
+
+        Randonnées / Trekking
+        Escalade [sports-extremes]
+        Camping
+        Canyoning [sports-extremes]
+
+    Chasse / Pêche
+
+        Cannes à pêche
+        Autres équipements de pêche
+        Equipements de chasse
+
+    Sports mécaniques
+
+        Sports automobiles
+        Bike
+        Quad
+        Buggy
+
+    Salles de sport
+
+        Fitness
+        Gymnastique
+        Appareils de musculation
+        Vélos d'intérieur [cyclisme]
+        Vélos elliptiques
+        Rameurs
+        Danse
+        Sports de combat
+        Arts martiaux
+
+    Jeux de plage
+
+        Beach Soccer [sports-collectifs]
+        Beach Volley [sports-collectifs]
+        Boomerangs
+        Cerfs-volants
+        Frisbees
+
+    Modélisme
+
+        Voitures RC
+        Camions RC
+        Moto RC
+        Bateaux RC
+        Drones de loisir
+        Avions RC
+        Hélicopères RC
+        Trains électriques
+        Maquettes
+        Récepteurs RC
+        Accessoires RC
+
+    Jeux de réflexion
+
+        Jeux de société
+        Casino / Poker
+        Jeux d'échecs / Dames
+        Autres jeux de pions
+        Jeux éducatifs
+
+    Jeux d'arcade
+
+        Baby-Foot
+        Flippers
+
+    Jeux pour enfants
+
+        Jeux pour garçons
+        Jeux pour petites filles
+        Jeux d'extérieur
+
+Soin du corps
+
+    Soin des cheveux
+
+        Sèche-cheveux
+        Fers à friser
+        Fers Multistyler
+        Lisseurs à cheveux
+        Tondeuses à cheveux
+
+    Soin de la peau
+
+        Epilateurs
+        Rasoirs éléctriques
+
+    Bien-être
+
+        Massage
+        Balances / Pèses personne
+        Jacuzzis
+
+    Matériel médical
+
+        Attelles
+        Béquilles
+        Fauteuils roulants
+        Déambulateurs
+        Appareils cardiovasculaires
+        Autres appareils médicaux
+
+Musique / Soirées / Concerts
+
+    Sonorisation
+
+        Enceintes de concert
+        Amplis pour concert
+        Micros de chant
+        Tables de mixage
+        Platines de DJ
+        Karaoke
+        Porte-voix
+
+    Eclairages / Effets spéciaux
+
+        Stroboscopes
+        Boules à facettes
+        Lumière noire
+        Machines à mousse
+        Néons de boîte de nuit
+        Spots de boîte de nuit
+
+    Instruments de musique
+
+        Guitares
+        Basses
+        Pianos
+        Claviers numériques
+        Batteries
+        Cuivres
+        Instrumets à vent
+        Luthérie
+        Accordéons
+        Harmonicas
+        Partitions
+        Autres instruments de percussion
+        Autres instruments à cordes
+
+Véhicules
+
+    Voitures
+
+        Citadines / Compactes
+        Berlines
+        Cabriolets / Décapotables
+        Monospaces
+        Vans
+        Camping-cars
+        Limousines [voitures-de-luxe]
+        Voitures anciennes [voitures-de-luxe]
+        Voitures avec chauffeur [voitures-de-luxe]
+        Voitures de sport [voitures-de-luxe]
+        Voitures sans permis
+
+    Utilitaires
+
+        Camionnettes
+        Petits utilitaires
+        Camions Benne [chantier-btp]
+        Camions / Fourgons
+        Poids lourds
+        Véhicules frigorifiques
+        Minibus
+        Camions porte-voiture
+        Utilitaires transformés
+        Utilitaires sans permis
+
+    Motos / Scooters
+
+        Motos 125cm3 et plus
+        Motos 125cm3 et moins
+        Scooters 125cm3 et plus
+        Scooters 125cm3 et moins
+        Mobylettes
+        Motos de collection vintage
+        Mini-motos
+        Accessoires Moto
+
+    Remorques
+
+        Remorques bagagères
+        Remorques de déchargement
+        Remorques de moto
+        Remorques porte-voiture
+
+    Accessoires auto
+
+        Coffres de toit
+        Chaînes d'attache
+        Outils de dépannage de voiture
+        Porte-vélos
+        Galeries de toit auto
+        Boosters de batterie
+        Porte-skis
+        Treuils de remorquage
+        Valises de diagnostic auto
+        Dashcam / Caméras et écrans embarqués
+        Avertisseur de radars [gps]
+        Plaques de désensablement
+        Sono de voiture
+
+    Voitures de luxe [luxe]
+
+Luxe
+
+    Vêtements de luxe
+
+        Robes de soirée
+        Costumes de luxe
+        Manteaux de luxe
+
+    Accessoires vestimentaires de luxe
+
+        Chapeaux de luxe
+        Sacs de luxe
+        Valises de luxe
