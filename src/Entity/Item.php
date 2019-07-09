@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
+ * @UniqueEntity("name")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Item
 {
@@ -44,6 +48,11 @@ class Item
     private $modifiedAt;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -61,6 +70,19 @@ class Item
     public function initializeModifiedAt()
     {
         $this->modifiedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->name);
+        }
     }
 
     public function __construct()
@@ -143,6 +165,18 @@ class Item
     public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

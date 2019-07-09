@@ -47,7 +47,6 @@ class Area
 
     /**
      * @ORM\PrePersist
-     * @ORM\PreUpdate
      * 
      * @return void
      */

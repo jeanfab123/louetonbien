@@ -6,11 +6,11 @@ use Faker;
 use App\Entity\Area;
 use App\Entity\Rubric;
 use App\Entity\Category;
+use App\Entity\Item;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\CategoryTypeManagement;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\Common\Collections\ArrayCollection;
 
 class AppFixtures extends Fixture
 {
@@ -22,7 +22,6 @@ class AppFixtures extends Fixture
         /*      STEP 0 : Initialization      */
         /*************************************/
         /*************************************/
-
 
         $faker = Faker\Factory::create('fr_FR');
         $slugify = new Slugify();
@@ -71,7 +70,7 @@ class AppFixtures extends Fixture
                     $cptArea++;
                     $area[$cptArea]['name'] = $line;
                     $area[$cptArea]['slug'] = $slugify->slugify($area[$cptArea]['name']);
-                    $area[$cptArea]['descr'] = "...";
+                    $area[$cptArea]['descr'] = $faker->paragraph(8);
                 }
 
                 // -- Rubrics -- //
@@ -90,7 +89,7 @@ class AppFixtures extends Fixture
                     $rubric[$cptRubric]['area-slug'] = $CTManager->getOthersParents();
                     array_push($rubric[$cptRubric]['area-slug'], $slugify->slugify($area[$cptArea]['slug']));
 
-                    $rubric[$cptRubric]['descr'] = "...";
+                    $rubric[$cptRubric]['descr'] = $faker->paragraph(8);
                 }
 
                 // -- Categories -- //
@@ -109,7 +108,7 @@ class AppFixtures extends Fixture
                     $category[$cptCategory]['rubric-slug'] = $CTManager->getOthersParents();
                     array_push($category[$cptCategory]['rubric-slug'], $slugify->slugify($rubric[$cptRubric]['slug']));
 
-                    $category[$cptCategory]['descr'] = "...";
+                    $category[$cptCategory]['descr'] = $faker->paragraph(8);
                 }
             }
 
@@ -129,7 +128,7 @@ class AppFixtures extends Fixture
             $area = new Area();
             $area->setTitle($value['name'])
                 ->setSlug($value['slug'])
-                ->setDescription('.....');
+                ->setDescription($value['descr']);
             $manager->persist($area);
         }
 
@@ -141,34 +140,27 @@ class AppFixtures extends Fixture
 
         foreach ($rubric as $value) {
 
-            // -- OLD
-            //$rubricArea = $areaRepository->findBy(array('slug' => $value['area-slug'][0]));
-
             $queryBuilder = $areaRepository->createQueryBuilder('area');
+            $cptSlug = 1;
             foreach ($value['area-slug'] as $slugValue) {
-                $queryBuilder->orWhere('area.slug = :areaSlug');
-                $queryBuilder->setParameter('areaSlug', $slugValue);
+                $queryBuilder->orWhere('area.slug = :areaSlug' . $cptSlug);
+                $queryBuilder->setParameter('areaSlug' . $cptSlug, $slugValue);
+                $cptSlug++;
             }
 
             $rubricArea = $queryBuilder->getQuery()->getResult();
 
-            /*
-            dump($rubricArea);
-            die;
-            */
-
             $rubric = new Rubric();
             $rubric
                 ->setName($value['name'])
-                ->setSlug($value['slug']);
-            $manager->persist($rubric);
-
-            //dump($rubricArea);
+                ->setSlug($value['slug'])
+                ->setDescription($value['descr']);
 
             foreach ($rubricArea as $thisRubricArea) {
                 $rubric->addArea($thisRubricArea);
-                $manager->persist($rubric);
             }
+
+            $manager->persist($rubric);
         }
 
         $manager->flush();
@@ -180,31 +172,37 @@ class AppFixtures extends Fixture
         foreach ($category as $value) {
 
             $queryBuilder = $rubricRepository->createQueryBuilder('rubric');
+            $cptSlug = 1;
             foreach ($value['rubric-slug'] as $slugValue) {
-                $queryBuilder->orWhere('rubric.slug = :rubricSlug');
-                $queryBuilder->setParameter('rubricSlug', $slugValue);
+                $queryBuilder->orWhere('rubric.slug = :rubricSlug' . $cptSlug);
+                $queryBuilder->setParameter('rubricSlug' . $cptSlug, $slugValue);
+                $cptSlug++;
             }
+
             $categoryRubric = $queryBuilder->getQuery()->getResult();
 
             $category = new Category();
             $category
                 ->setName($value['name'])
-                ->setSlug($value['slug']);
-            $manager->persist($category);
+                ->setSlug($value['slug'])
+                ->setDescription($value['descr']);
 
             foreach ($categoryRubric as $thisCategoryRubric) {
                 $category->addRubric($thisCategoryRubric);
-                $manager->persist($category);
             }
 
+            $manager->persist($category);
 
+            // -- Generate Random Items -- //
 
-            /*
-            for ($cpt = 0; $cpt <= 20; $cpt++) {
+            for ($cpt = 0; $cpt <= mt_rand(0, 500); $cpt++) {
                 $item = new Item();
-                $item->setName('');
+                $item
+                    ->setName($faker->sentence(15))
+                    ->setDescription($faker->paragraph(15))
+                    ->addCategory($category);
+                $manager->persist($item);
             }
-            */
         }
 
         $manager->flush();
