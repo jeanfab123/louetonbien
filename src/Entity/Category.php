@@ -78,6 +78,7 @@ class Category
 
     public function __construct()
     {
+        $this->rubric = new ArrayCollection();
         $this->items = new ArrayCollection();
     }
 
@@ -138,14 +139,28 @@ class Category
         return $this;
     }
 
-    public function getRubric(): ?Rubric
+    /**
+     * @return Collection|rubric[]
+     */
+    public function getRubric(): Collection
     {
         return $this->rubric;
     }
 
-    public function setRubric(?Rubric $rubric): self
+    public function addRubric(rubric $rubric): self
     {
-        $this->rubric = $rubric;
+        if (!$this->rubric->contains($rubric)) {
+            $this->rubric[] = $rubric;
+        }
+
+        return $this;
+    }
+
+    public function removeRubric(rubric $rubric): self
+    {
+        if ($this->rubric->contains($rubric)) {
+            $this->rubric->removeElement($rubric);
+        }
 
         return $this;
     }

@@ -46,7 +46,6 @@ class Rubric
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Area", inversedBy="rubric")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $area;
 
@@ -76,6 +75,7 @@ class Rubric
 
     public function __construct()
     {
+        $this->area = new ArrayCollection();
         $this->category = new ArrayCollection();
     }
 
@@ -144,33 +144,44 @@ class Rubric
     {
         if (!$this->category->contains($category)) {
             $this->category[] = $category;
-            $category->setRubric($this);
+            $category->addRubric($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(category $category): self
+    public function removeCategory(Category $category): self
     {
-        if ($this->category->contains($category)) {
-            $this->category->removeElement($category);
-            // set the owning side to null (unless already changed)
-            if ($category->getRubric() === $this) {
-                $category->setRubric(null);
-            }
+        if ($this->categories->contains($category)) {
+            $this->categories->removeElement($category);
+            $category->removeRubric($this);
         }
 
         return $this;
     }
 
-    public function getArea(): ?Area
+    /**
+     * @return Collection|area[]
+     */
+    public function getArea(): Collection
     {
         return $this->area;
     }
 
-    public function setArea(?Area $area): self
+    public function addArea(area $area): self
     {
-        $this->area = $area;
+        if (!$this->area->contains($area)) {
+            $this->area[] = $area;
+        }
+
+        return $this;
+    }
+
+    public function removeArea(area $area): self
+    {
+        if ($this->area->contains($area)) {
+            $this->area->removeElement($area);
+        }
 
         return $this;
     }

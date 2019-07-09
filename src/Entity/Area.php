@@ -103,20 +103,17 @@ class Area
     {
         if (!$this->rubric->contains($rubric)) {
             $this->rubric[] = $rubric;
-            $rubric->setArea($this);
+            $rubric->addArea($this);
         }
 
         return $this;
     }
 
-    public function removeRubric(rubric $rubric): self
+    public function removeRubric(Rubric $rubric): self
     {
-        if ($this->rubric->contains($rubric)) {
-            $this->rubric->removeElement($rubric);
-            // set the owning side to null (unless already changed)
-            if ($rubric->getArea() === $this) {
-                $rubric->setArea(null);
-            }
+        if ($this->rubrics->contains($rubric)) {
+            $this->rubrics->removeElement($rubric);
+            $rubric->removeArea($this);
         }
 
         return $this;

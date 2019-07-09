@@ -4,13 +4,13 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Area;
-use App\Entity\Item;
 use App\Entity\Rubric;
 use App\Entity\Category;
 use Cocur\Slugify\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\CategoryTypeManagement;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class AppFixtures extends Fixture
 {
@@ -116,9 +116,6 @@ class AppFixtures extends Fixture
             fclose($file);
         }
 
-        dump($category);
-        die;
-
         /**************************************/
         /**************************************/
         /*      STEP 2 : CREATE FIXTURES      */
@@ -144,21 +141,21 @@ class AppFixtures extends Fixture
 
         foreach ($rubric as $value) {
 
+            // -- OLD
+            //$rubricArea = $areaRepository->findBy(array('slug' => $value['area-slug'][0]));
+
             $queryBuilder = $areaRepository->createQueryBuilder('area');
             foreach ($value['area-slug'] as $slugValue) {
                 $queryBuilder->orWhere('area.slug = :areaSlug');
                 $queryBuilder->setParameter('areaSlug', $slugValue);
             }
+
             $rubricArea = $queryBuilder->getQuery()->getResult();
 
             /*
-            $rubric = new Rubric();
-            $rubric->setName($value['name'])
-                ->setSlug($value['slug'])
-                ->setArea($rubricArea);
-            $manager->persist($rubric);
+            dump($rubricArea);
+            die;
             */
-
 
             $rubric = new Rubric();
             $rubric
@@ -166,14 +163,15 @@ class AppFixtures extends Fixture
                 ->setSlug($value['slug']);
             $manager->persist($rubric);
 
+            //dump($rubricArea);
+
             foreach ($rubricArea as $thisRubricArea) {
-                $rubric->setArea($thisRubricArea);
+                $rubric->addArea($thisRubricArea);
                 $manager->persist($rubric);
             }
         }
 
         $manager->flush();
-
 
         // -- Generate Categories -- //
 
@@ -186,16 +184,7 @@ class AppFixtures extends Fixture
                 $queryBuilder->orWhere('rubric.slug = :rubricSlug');
                 $queryBuilder->setParameter('rubricSlug', $slugValue);
             }
-            $categoryRubric = $queryBuilder->getQuery()->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
-
-            /*
-            $category = new Category();
-            $category->setName($value['name'])
-                ->setSlug($value['slug'])
-                ->setRubric($categoryRubric);
-            $manager->persist($category);
-            */
-
+            $categoryRubric = $queryBuilder->getQuery()->getResult();
 
             $category = new Category();
             $category
@@ -204,7 +193,7 @@ class AppFixtures extends Fixture
             $manager->persist($category);
 
             foreach ($categoryRubric as $thisCategoryRubric) {
-                $category->setRubric($thisCategoryRubric);
+                $category->addRubric($thisCategoryRubric);
                 $manager->persist($category);
             }
 
