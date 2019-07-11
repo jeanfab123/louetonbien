@@ -2,11 +2,18 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
+ * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, \Serializable
@@ -59,7 +66,7 @@ class User implements UserInterface, \Serializable
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $gender;
 
@@ -89,6 +96,22 @@ class User implements UserInterface, \Serializable
     private $country;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Tag", mappedBy="user")
+     */
+    private $tags;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="User")
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+        $this->items = new ArrayCollection();
+    }
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -106,6 +129,19 @@ class User implements UserInterface, \Serializable
     public function initializeModifiedAt()
     {
         $this->modifiedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->username);
+        }
     }
 
     public function getId(): ?int
@@ -310,6 +346,68 @@ class User implements UserInterface, \Serializable
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            // set the owning side to null (unless already changed)
+            if ($tag->getUser() === $this) {
+                $tag->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            // set the owning side to null (unless already changed)
+            if ($item->getUser() === $this) {
+                $item->setUser(null);
+            }
+        }
 
         return $this;
     }

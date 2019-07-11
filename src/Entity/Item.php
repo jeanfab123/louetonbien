@@ -53,6 +53,17 @@ class Item
     private $slug;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="item")
+     */
+    private $tags;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="items")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $User;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -88,6 +99,7 @@ class Item
     public function __construct()
     {
         $this->category = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -177,6 +189,46 @@ class Item
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+            $tag->removeItem($this);
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }
