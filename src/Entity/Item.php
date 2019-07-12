@@ -64,6 +64,26 @@ class Item
     private $User;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $depositAmount;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $similarItemsNumber;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\withdrawalPoint", inversedBy="items")
+     */
+    private $withdrawalPoint;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -100,6 +120,7 @@ class Item
     {
         $this->category = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->withdrawalPoint = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +250,68 @@ class Item
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getDepositAmount(): ?int
+    {
+        return $this->depositAmount;
+    }
+
+    public function setDepositAmount(?int $depositAmount): self
+    {
+        $this->depositAmount = $depositAmount;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(?string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getSimilarItemsNumber(): ?int
+    {
+        return $this->similarItemsNumber;
+    }
+
+    public function setSimilarItemsNumber(?int $similarItemsNumber): self
+    {
+        $this->similarItemsNumber = $similarItemsNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|withdrawalPoint[]
+     */
+    public function getWithdrawalPoint(): Collection
+    {
+        return $this->withdrawalPoint;
+    }
+
+    public function addWithdrawalPoint(withdrawalPoint $withdrawalPoint): self
+    {
+        if (!$this->withdrawalPoint->contains($withdrawalPoint)) {
+            $this->withdrawalPoint[] = $withdrawalPoint;
+        }
+
+        return $this;
+    }
+
+    public function removeWithdrawalPoint(withdrawalPoint $withdrawalPoint): self
+    {
+        if ($this->withdrawalPoint->contains($withdrawalPoint)) {
+            $this->withdrawalPoint->removeElement($withdrawalPoint);
+        }
 
         return $this;
     }

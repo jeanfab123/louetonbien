@@ -81,7 +81,7 @@ class User implements UserInterface, \Serializable
     private $address;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=10, nullable=true)
      */
     private $zipcode;
 
@@ -120,10 +120,16 @@ class User implements UserInterface, \Serializable
      */
     private $officePhone;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\WithdrawalPoint", mappedBy="user")
+     */
+    private $withdrawalPoints;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->withdrawalPoints = new ArrayCollection();
     }
 
     /**
@@ -329,12 +335,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getZipcode(): ?int
+    public function getZipcode(): ?string
     {
         return $this->zipcode;
     }
 
-    public function setZipcode(?int $zipcode): self
+    public function setZipcode(?string $zipcode): self
     {
         $this->zipcode = $zipcode;
 
@@ -459,6 +465,37 @@ class User implements UserInterface, \Serializable
     public function setOfficePhone(?string $officePhone): self
     {
         $this->officePhone = $officePhone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WithdrawalPoint[]
+     */
+    public function getWithdrawalPoints(): Collection
+    {
+        return $this->withdrawalPoints;
+    }
+
+    public function addWithdrawalPoint(WithdrawalPoint $withdrawalPoint): self
+    {
+        if (!$this->withdrawalPoints->contains($withdrawalPoint)) {
+            $this->withdrawalPoints[] = $withdrawalPoint;
+            $withdrawalPoint->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWithdrawalPoint(WithdrawalPoint $withdrawalPoint): self
+    {
+        if ($this->withdrawalPoints->contains($withdrawalPoint)) {
+            $this->withdrawalPoints->removeElement($withdrawalPoint);
+            // set the owning side to null (unless already changed)
+            if ($withdrawalPoint->getUser() === $this) {
+                $withdrawalPoint->setUser(null);
+            }
+        }
 
         return $this;
     }
