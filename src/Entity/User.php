@@ -105,6 +105,21 @@ class User implements UserInterface, \Serializable
      */
     private $items;
 
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $housePhone;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $mobilePhone;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $officePhone;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -408,6 +423,42 @@ class User implements UserInterface, \Serializable
                 $item->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHousePhone(): ?string
+    {
+        return $this->housePhone;
+    }
+
+    public function setHousePhone(?string $housePhone): self
+    {
+        $this->housePhone = $housePhone;
+
+        return $this;
+    }
+
+    public function getMobilePhone(): ?string
+    {
+        return $this->mobilePhone;
+    }
+
+    public function setMobilePhone(?string $mobilePhone): self
+    {
+        $this->mobilePhone = $mobilePhone;
+
+        return $this;
+    }
+
+    public function getOfficePhone(): ?string
+    {
+        return $this->officePhone;
+    }
+
+    public function setOfficePhone(?string $officePhone): self
+    {
+        $this->officePhone = $officePhone;
 
         return $this;
     }
