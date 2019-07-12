@@ -84,6 +84,11 @@ class Item
     private $withdrawalPoint;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="item", orphanRemoval=true)
+     */
+    private $prices;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -121,6 +126,7 @@ class Item
         $this->category = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->withdrawalPoint = new ArrayCollection();
+        $this->prices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -311,6 +317,37 @@ class Item
     {
         if ($this->withdrawalPoint->contains($withdrawalPoint)) {
             $this->withdrawalPoint->removeElement($withdrawalPoint);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Price[]
+     */
+    public function getPrices(): Collection
+    {
+        return $this->prices;
+    }
+
+    public function addPrice(Price $price): self
+    {
+        if (!$this->prices->contains($price)) {
+            $this->prices[] = $price;
+            $price->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrice(Price $price): self
+    {
+        if ($this->prices->contains($price)) {
+            $this->prices->removeElement($price);
+            // set the owning side to null (unless already changed)
+            if ($price->getItem() === $this) {
+                $price->setItem(null);
+            }
         }
 
         return $this;
