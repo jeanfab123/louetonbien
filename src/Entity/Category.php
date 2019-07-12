@@ -54,6 +54,11 @@ class Category
     private $createdAt;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute", mappedBy="category")
+     */
+    private $attributes;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -80,6 +85,7 @@ class Category
     {
         $this->rubric = new ArrayCollection();
         $this->items = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,6 +191,34 @@ class Category
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+            $attribute->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(Attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+            $attribute->removeCategory($this);
+        }
 
         return $this;
     }

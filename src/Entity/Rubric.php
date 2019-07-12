@@ -58,6 +58,11 @@ class Rubric
     private $tags;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute", mappedBy="rubric")
+     */
+    private $attributes;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -85,6 +90,7 @@ class Rubric
         $this->area = new ArrayCollection();
         $this->category = new ArrayCollection();
         $this->tags = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -217,6 +223,34 @@ class Rubric
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
             $tag->removeRubric($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+            $attribute->addRubric($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(Attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+            $attribute->removeRubric($this);
         }
 
         return $this;

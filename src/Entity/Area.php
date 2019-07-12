@@ -48,6 +48,11 @@ class Area
     private $slug;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Attribute", mappedBy="area")
+     */
+    private $attributes;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -73,6 +78,7 @@ class Area
     public function __construct()
     {
         $this->rubric = new ArrayCollection();
+        $this->attributes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,6 +158,34 @@ class Area
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Attribute[]
+     */
+    public function getAttributes(): Collection
+    {
+        return $this->attributes;
+    }
+
+    public function addAttribute(Attribute $attribute): self
+    {
+        if (!$this->attributes->contains($attribute)) {
+            $this->attributes[] = $attribute;
+            $attribute->addArea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAttribute(Attribute $attribute): self
+    {
+        if ($this->attributes->contains($attribute)) {
+            $this->attributes->removeElement($attribute);
+            $attribute->removeArea($this);
+        }
 
         return $this;
     }
