@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\WithdrawalPointRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PickupPointRepository")
  */
-class WithdrawalPoint
+class PickupPoint
 {
     /**
      * @ORM\Id()
@@ -24,7 +24,7 @@ class WithdrawalPoint
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="withdrawalPoints")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="pickupPoints")
      */
     private $user;
 
@@ -54,19 +54,34 @@ class WithdrawalPoint
     private $furtherInformation;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="withdrawalPoint")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="pickupPoint")
      */
     private $items;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\WithdrawalPointDayHour", mappedBy="withdrawalPoint", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PickupPointDayHour", mappedBy="pickupPoint", orphanRemoval=true)
      */
-    private $withdrawalPointDayHours;
+    private $pickupPointDayHours;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedAt;
 
     public function __construct()
     {
         $this->items = new ArrayCollection();
-        $this->withdrawalPointDayHours = new ArrayCollection();
+        $this->pickupPointDayHours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,7 +185,7 @@ class WithdrawalPoint
     {
         if (!$this->items->contains($item)) {
             $this->items[] = $item;
-            $item->addWithdrawalPoint($this);
+            $item->addPickupPoint($this);
         }
 
         return $this;
@@ -180,39 +195,75 @@ class WithdrawalPoint
     {
         if ($this->items->contains($item)) {
             $this->items->removeElement($item);
-            $item->removeWithdrawalPoint($this);
+            $item->removePickupPoint($this);
         }
 
         return $this;
     }
 
     /**
-     * @return Collection|WithdrawalPointDayHour[]
+     * @return Collection|PickupPointDayHour[]
      */
-    public function getWithdrawalPointDayHours(): Collection
+    public function getPickupPointDayHours(): Collection
     {
-        return $this->withdrawalPointDayHours;
+        return $this->pickupPointDayHours;
     }
 
-    public function addWithdrawalPointDayHour(WithdrawalPointDayHour $withdrawalPointDayHour): self
+    public function addPickupPointDayHour(PickupPointDayHour $pickupPointDayHour): self
     {
-        if (!$this->withdrawalPointDayHours->contains($withdrawalPointDayHour)) {
-            $this->withdrawalPointDayHours[] = $withdrawalPointDayHour;
-            $withdrawalPointDayHour->setWithdrawalPoint($this);
+        if (!$this->pickupPointDayHours->contains($pickupPointDayHour)) {
+            $this->pickupPointDayHours[] = $pickupPointDayHour;
+            $pickupPointDayHour->setPickupPoint($this);
         }
 
         return $this;
     }
 
-    public function removeWithdrawalPointDayHour(WithdrawalPointDayHour $withdrawalPointDayHour): self
+    public function removePickupPointDayHour(PickupPointDayHour $pickupPointDayHour): self
     {
-        if ($this->withdrawalPointDayHours->contains($withdrawalPointDayHour)) {
-            $this->withdrawalPointDayHours->removeElement($withdrawalPointDayHour);
+        if ($this->pickupPointDayHours->contains($pickupPointDayHour)) {
+            $this->pickupPointDayHours->removeElement($pickupPointDayHour);
             // set the owning side to null (unless already changed)
-            if ($withdrawalPointDayHour->getWithdrawalPoint() === $this) {
-                $withdrawalPointDayHour->setWithdrawalPoint(null);
+            if ($pickupPointDayHour->getPickupPoint() === $this) {
+                $pickupPointDayHour->setPickupPoint(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

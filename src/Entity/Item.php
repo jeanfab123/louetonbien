@@ -79,9 +79,9 @@ class Item
     private $similarItemsNumber;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\withdrawalPoint", inversedBy="items")
+     * @ORM\ManyToMany(targetEntity="App\Entity\pickupPoint", inversedBy="items")
      */
-    private $withdrawalPoint;
+    private $pickupPoint;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Price", mappedBy="item", orphanRemoval=true)
@@ -125,7 +125,7 @@ class Item
     {
         $this->category = new ArrayCollection();
         $this->tags = new ArrayCollection();
-        $this->withdrawalPoint = new ArrayCollection();
+        $this->pickupPoint = new ArrayCollection();
         $this->prices = new ArrayCollection();
     }
 
@@ -297,26 +297,26 @@ class Item
     }
 
     /**
-     * @return Collection|withdrawalPoint[]
+     * @return Collection|pickupPoint[]
      */
-    public function getWithdrawalPoint(): Collection
+    public function getPickupPoint(): Collection
     {
-        return $this->withdrawalPoint;
+        return $this->pickupPoint;
     }
 
-    public function addWithdrawalPoint(withdrawalPoint $withdrawalPoint): self
+    public function addPickupPoint(pickupPoint $pickupPoint): self
     {
-        if (!$this->withdrawalPoint->contains($withdrawalPoint)) {
-            $this->withdrawalPoint[] = $withdrawalPoint;
+        if (!$this->pickupPoint->contains($pickupPoint)) {
+            $this->pickupPoint[] = $pickupPoint;
         }
 
         return $this;
     }
 
-    public function removeWithdrawalPoint(withdrawalPoint $withdrawalPoint): self
+    public function removePickupPoint(pickupPoint $pickupPoint): self
     {
-        if ($this->withdrawalPoint->contains($withdrawalPoint)) {
-            $this->withdrawalPoint->removeElement($withdrawalPoint);
+        if ($this->pickupPoint->contains($pickupPoint)) {
+            $this->pickupPoint->removeElement($pickupPoint);
         }
 
         return $this;

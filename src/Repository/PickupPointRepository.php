@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\WithdrawalPoint;
+use App\Entity\PickupPoint;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method WithdrawalPoint|null find($id, $lockMode = null, $lockVersion = null)
- * @method WithdrawalPoint|null findOneBy(array $criteria, array $orderBy = null)
- * @method WithdrawalPoint[]    findAll()
- * @method WithdrawalPoint[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PickupPoint|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PickupPoint|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PickupPoint[]    findAll()
+ * @method PickupPoint[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WithdrawalPointRepository extends ServiceEntityRepository
+class PickupPointRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, WithdrawalPoint::class);
+        parent::__construct($registry, PickupPoint::class);
     }
 
     // /**
-    //  * @return WithdrawalPoint[] Returns an array of WithdrawalPoint objects
+    //  * @return PickupPoint[] Returns an array of PickupPoint objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class WithdrawalPointRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?WithdrawalPoint
+    public function findOneBySomeField($value): ?PickupPoint
     {
         return $this->createQueryBuilder('w')
             ->andWhere('w.exampleField = :val')

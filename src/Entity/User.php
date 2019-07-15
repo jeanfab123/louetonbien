@@ -121,15 +121,15 @@ class User implements UserInterface, \Serializable
     private $officePhone;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\WithdrawalPoint", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\PickupPoint", mappedBy="user")
      */
-    private $withdrawalPoints;
+    private $pickupPoints;
 
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->items = new ArrayCollection();
-        $this->withdrawalPoints = new ArrayCollection();
+        $this->pickupPoints = new ArrayCollection();
     }
 
     /**
@@ -470,30 +470,30 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * @return Collection|WithdrawalPoint[]
+     * @return Collection|PickupPoint[]
      */
-    public function getWithdrawalPoints(): Collection
+    public function getPickupPoints(): Collection
     {
-        return $this->withdrawalPoints;
+        return $this->pickupPoints;
     }
 
-    public function addWithdrawalPoint(WithdrawalPoint $withdrawalPoint): self
+    public function addPickupPoint(PickupPoint $pickupPoint): self
     {
-        if (!$this->withdrawalPoints->contains($withdrawalPoint)) {
-            $this->withdrawalPoints[] = $withdrawalPoint;
-            $withdrawalPoint->setUser($this);
+        if (!$this->pickupPoints->contains($pickupPoint)) {
+            $this->pickupPoints[] = $pickupPoint;
+            $pickupPoint->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeWithdrawalPoint(WithdrawalPoint $withdrawalPoint): self
+    public function removePickupPoint(PickupPoint $pickupPoint): self
     {
-        if ($this->withdrawalPoints->contains($withdrawalPoint)) {
-            $this->withdrawalPoints->removeElement($withdrawalPoint);
+        if ($this->pickupPoints->contains($pickupPoint)) {
+            $this->pickupPoints->removeElement($pickupPoint);
             // set the owning side to null (unless already changed)
-            if ($withdrawalPoint->getUser() === $this) {
-                $withdrawalPoint->setUser(null);
+            if ($pickupPoint->getUser() === $this) {
+                $pickupPoint->setUser(null);
             }
         }
 

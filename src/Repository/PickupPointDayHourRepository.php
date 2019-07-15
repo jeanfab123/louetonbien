@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\WithdrawalPointDayHour;
+use App\Entity\PickupPointDayHour;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method WithdrawalPointDayHour|null find($id, $lockMode = null, $lockVersion = null)
- * @method WithdrawalPointDayHour|null findOneBy(array $criteria, array $orderBy = null)
- * @method WithdrawalPointDayHour[]    findAll()
- * @method WithdrawalPointDayHour[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PickupPointDayHour|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PickupPointDayHour|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PickupPointDayHour[]    findAll()
+ * @method PickupPointDayHour[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class WithdrawalPointDayHourRepository extends ServiceEntityRepository
+class PickupPointDayHourRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, WithdrawalPointDayHour::class);
+        parent::__construct($registry, PickupPointDayHour::class);
     }
 
     // /**
-    //  * @return WithdrawalPointDayHour[] Returns an array of WithdrawalPointDayHour objects
+    //  * @return PickupPointDayHour[] Returns an array of PickupPointDayHour objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class WithdrawalPointDayHourRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?WithdrawalPointDayHour
+    public function findOneBySomeField($value): ?PickupPointDayHour
     {
         return $this->createQueryBuilder('w')
             ->andWhere('w.exampleField = :val')

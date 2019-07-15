@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\WithdrawalPointDayHourRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\PickupPointDayHourRepository")
  */
-class WithdrawalPointDayHour
+class PickupPointDayHour
 {
     /**
      * @ORM\Id()
@@ -32,10 +32,15 @@ class WithdrawalPointDayHour
     private $end;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\withdrawalPoint", inversedBy="withdrawalPointDayHours")
+     * @ORM\ManyToOne(targetEntity="App\Entity\pickupPoint", inversedBy="pickupPointDayHours")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $withdrawalPoint;
+    private $pickupPoint;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     public function getId(): ?int
     {
@@ -78,14 +83,26 @@ class WithdrawalPointDayHour
         return $this;
     }
 
-    public function getWithdrawalPoint(): ?withdrawalPoint
+    public function getPickupPoint(): ?pickupPoint
     {
-        return $this->withdrawalPoint;
+        return $this->pickupPoint;
     }
 
-    public function setWithdrawalPoint(?withdrawalPoint $withdrawalPoint): self
+    public function setPickupPoint(?pickupPoint $pickupPoint): self
     {
-        $this->withdrawalPoint = $withdrawalPoint;
+        $this->pickupPoint = $pickupPoint;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
