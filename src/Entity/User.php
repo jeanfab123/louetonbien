@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Cocur\Slugify\Slugify;
+use App\Entity\EntitySlugTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -18,6 +18,9 @@ use Cocur\Slugify\Slugify;
  */
 class User implements UserInterface, \Serializable
 {
+
+    use EntitySlugTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -125,21 +128,51 @@ class User implements UserInterface, \Serializable
      */
     private $pickupPoints;
 
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
-        $this->items = new ArrayCollection();
-        $this->pickupPoints = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $validatedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $suspendedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $bannedAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $closedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemRequest", mappedBy="user")
+     */
+    private $itemRequests;
 
     /**
      * @ORM\PrePersist
      * 
      * @return void
      */
-    public function initializeCreatedAt()
+    public function initializeDatasBeforeCreation()
     {
+        $this->generateSlug($this->username);
         $this->createdAt = new \DateTime();
+        $this->state = 'UNVALIDATED';
     }
 
     /**
@@ -147,22 +180,17 @@ class User implements UserInterface, \Serializable
      * 
      * @return void
      */
-    public function initializeModifiedAt()
+    public function initializeDatasBeforeUpdate()
     {
         $this->modifiedAt = new \DateTime();
     }
 
-    /**
-     * @ORM\PrePersist
-     * 
-     * @return void
-     */
-    public function initializeSlug()
+    public function __construct()
     {
-        if (empty($this->slug)) {
-            $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->username);
-        }
+        $this->tags = new ArrayCollection();
+        $this->items = new ArrayCollection();
+        $this->pickupPoints = new ArrayCollection();
+        $this->itemRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -494,6 +522,109 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($pickupPoint->getUser() === $this) {
                 $pickupPoint->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    public function getValidatedAt(): ?\DateTimeInterface
+    {
+        return $this->validatedAt;
+    }
+
+    public function setValidatedAt(?\DateTimeInterface $validatedAt): self
+    {
+        $this->validatedAt = $validatedAt;
+
+        return $this;
+    }
+
+    public function getSuspendedAt(): ?\DateTimeInterface
+    {
+        return $this->suspendedAt;
+    }
+
+    public function setSuspendedAt(?\DateTimeInterface $suspendedAt): self
+    {
+        $this->suspendedAt = $suspendedAt;
+
+        return $this;
+    }
+
+    public function getBannedAt(): ?\DateTimeInterface
+    {
+        return $this->bannedAt;
+    }
+
+    public function setBannedAt(?\DateTimeInterface $bannedAt): self
+    {
+        $this->bannedAt = $bannedAt;
+
+        return $this;
+    }
+
+    public function getClosedAt(): ?\DateTimeInterface
+    {
+        return $this->closedAt;
+    }
+
+    public function setClosedAt(?\DateTimeInterface $closedAt): self
+    {
+        $this->closedAt = $closedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemRequest[]
+     */
+    public function getItemRequests(): Collection
+    {
+        return $this->itemRequests;
+    }
+
+    public function addItemRequest(ItemRequest $itemRequest): self
+    {
+        if (!$this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests[] = $itemRequest;
+            $itemRequest->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequest(ItemRequest $itemRequest): self
+    {
+        if ($this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests->removeElement($itemRequest);
+            // set the owning side to null (unless already changed)
+            if ($itemRequest->getUser() === $this) {
+                $itemRequest->setUser(null);
             }
         }
 

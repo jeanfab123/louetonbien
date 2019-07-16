@@ -53,6 +53,11 @@ class Area
     private $attributes;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ItemRequest", mappedBy="area")
+     */
+    private $itemRequests;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -79,6 +84,7 @@ class Area
     {
         $this->rubric = new ArrayCollection();
         $this->attributes = new ArrayCollection();
+        $this->itemRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,6 +191,34 @@ class Area
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
             $attribute->removeArea($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemRequest[]
+     */
+    public function getItemRequests(): Collection
+    {
+        return $this->itemRequests;
+    }
+
+    public function addItemRequest(ItemRequest $itemRequest): self
+    {
+        if (!$this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests[] = $itemRequest;
+            $itemRequest->addArea($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequest(ItemRequest $itemRequest): self
+    {
+        if ($this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests->removeElement($itemRequest);
+            $itemRequest->removeArea($this);
         }
 
         return $this;

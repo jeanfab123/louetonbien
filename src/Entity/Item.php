@@ -6,15 +6,19 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Cocur\Slugify\Slugify;
+use App\Entity\EntitySlugTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("subtitle")
  * @ORM\HasLifecycleCallbacks()
  */
 class Item
 {
+
+    use EntitySlugTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -89,12 +93,38 @@ class Item
     private $prices;
 
     /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $code;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $viewsNumber;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $enabledAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $disabledAt;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
      */
-    public function initializeCreatedAt()
+    public function initializeDatasBeforeCreation()
     {
+        $this->generateSlug($this->name);
         $this->createdAt = new \DateTime();
     }
 
@@ -103,22 +133,9 @@ class Item
      * 
      * @return void
      */
-    public function initializeModifiedAt()
+    public function initializeDatasBeforeUpdate()
     {
         $this->modifiedAt = new \DateTime();
-    }
-
-    /**
-     * @ORM\PrePersist
-     * 
-     * @return void
-     */
-    public function initializeSlug()
-    {
-        if (empty($this->slug)) {
-            $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->name);
-        }
     }
 
     public function __construct()
@@ -349,6 +366,66 @@ class Item
                 $price->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(string $code): self
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    public function getViewsNumber(): ?int
+    {
+        return $this->viewsNumber;
+    }
+
+    public function setViewsNumber(?int $viewsNumber): self
+    {
+        $this->viewsNumber = $viewsNumber;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(?bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getEnabledAt(): ?\DateTimeInterface
+    {
+        return $this->enabledAt;
+    }
+
+    public function setEnabledAt(?\DateTimeInterface $enabledAt): self
+    {
+        $this->enabledAt = $enabledAt;
+
+        return $this;
+    }
+
+    public function getDisabledAt(): ?\DateTimeInterface
+    {
+        return $this->disabledAt;
+    }
+
+    public function setDisabledAt(?\DateTimeInterface $disabledAt): self
+    {
+        $this->disabledAt = $disabledAt;
 
         return $this;
     }

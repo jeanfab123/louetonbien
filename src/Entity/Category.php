@@ -59,6 +59,11 @@ class Category
     private $attributes;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ItemRequest", mappedBy="category")
+     */
+    private $itemRequests;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -86,6 +91,7 @@ class Category
         $this->rubric = new ArrayCollection();
         $this->items = new ArrayCollection();
         $this->attributes = new ArrayCollection();
+        $this->itemRequests = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -218,6 +224,34 @@ class Category
         if ($this->attributes->contains($attribute)) {
             $this->attributes->removeElement($attribute);
             $attribute->removeCategory($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemRequest[]
+     */
+    public function getItemRequests(): Collection
+    {
+        return $this->itemRequests;
+    }
+
+    public function addItemRequest(ItemRequest $itemRequest): self
+    {
+        if (!$this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests[] = $itemRequest;
+            $itemRequest->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequest(ItemRequest $itemRequest): self
+    {
+        if ($this->itemRequests->contains($itemRequest)) {
+            $this->itemRequests->removeElement($itemRequest);
+            $itemRequest->removeCategory($this);
         }
 
         return $this;
