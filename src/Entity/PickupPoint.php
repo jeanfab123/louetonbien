@@ -78,10 +78,16 @@ class PickupPoint
      */
     private $modifiedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rental", mappedBy="pickupPoint")
+     */
+    private $rentals;
+
     public function __construct()
     {
         $this->items = new ArrayCollection();
         $this->pickupPointDayHours = new ArrayCollection();
+        $this->rentals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -264,6 +270,37 @@ class PickupPoint
     public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rental[]
+     */
+    public function getRentals(): Collection
+    {
+        return $this->rentals;
+    }
+
+    public function addRental(Rental $rental): self
+    {
+        if (!$this->rentals->contains($rental)) {
+            $this->rentals[] = $rental;
+            $rental->setPickupPoint($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRental(Rental $rental): self
+    {
+        if ($this->rentals->contains($rental)) {
+            $this->rentals->removeElement($rental);
+            // set the owning side to null (unless already changed)
+            if ($rental->getPickupPoint() === $this) {
+                $rental->setPickupPoint(null);
+            }
+        }
 
         return $this;
     }

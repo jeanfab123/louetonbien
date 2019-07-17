@@ -118,6 +118,11 @@ class Item
     private $disabledAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rental", mappedBy="item")
+     */
+    private $rentals;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -144,6 +149,7 @@ class Item
         $this->tags = new ArrayCollection();
         $this->pickupPoint = new ArrayCollection();
         $this->prices = new ArrayCollection();
+        $this->rentals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -426,6 +432,37 @@ class Item
     public function setDisabledAt(?\DateTimeInterface $disabledAt): self
     {
         $this->disabledAt = $disabledAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rental[]
+     */
+    public function getRentals(): Collection
+    {
+        return $this->rentals;
+    }
+
+    public function addRental(Rental $rental): self
+    {
+        if (!$this->rentals->contains($rental)) {
+            $this->rentals[] = $rental;
+            $rental->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRental(Rental $rental): self
+    {
+        if ($this->rentals->contains($rental)) {
+            $this->rentals->removeElement($rental);
+            // set the owning side to null (unless already changed)
+            if ($rental->getItem() === $this) {
+                $rental->setItem(null);
+            }
+        }
 
         return $this;
     }

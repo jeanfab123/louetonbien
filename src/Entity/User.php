@@ -111,7 +111,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $housePhone;
+    private $fixedPhone;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
@@ -164,6 +164,16 @@ class User implements UserInterface, \Serializable
     private $itemRequests;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rental", mappedBy="tenant")
+     */
+    private $rentals;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rental", mappedBy="renter")
+     */
+    private $renterRentals;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -191,6 +201,8 @@ class User implements UserInterface, \Serializable
         $this->items = new ArrayCollection();
         $this->pickupPoints = new ArrayCollection();
         $this->itemRequests = new ArrayCollection();
+        $this->rentals = new ArrayCollection();
+        $this->renterRentals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -461,14 +473,14 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function getHousePhone(): ?string
+    public function getFixedPhone(): ?string
     {
-        return $this->housePhone;
+        return $this->fixedPhone;
     }
 
-    public function setHousePhone(?string $housePhone): self
+    public function setFixedPhone(?string $fixedPhone): self
     {
-        $this->housePhone = $housePhone;
+        $this->fixedPhone = $fixedPhone;
 
         return $this;
     }
@@ -625,6 +637,68 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($itemRequest->getUser() === $this) {
                 $itemRequest->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rental[]
+     */
+    public function getRentals(): Collection
+    {
+        return $this->rentals;
+    }
+
+    public function addRental(Rental $rental): self
+    {
+        if (!$this->rentals->contains($rental)) {
+            $this->rentals[] = $rental;
+            $rental->setTenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRental(Rental $rental): self
+    {
+        if ($this->rentals->contains($rental)) {
+            $this->rentals->removeElement($rental);
+            // set the owning side to null (unless already changed)
+            if ($rental->getTenant() === $this) {
+                $rental->setTenant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rental[]
+     */
+    public function getRenterRentals(): Collection
+    {
+        return $this->renterRentals;
+    }
+
+    public function addRenterRental(Rental $renterRental): self
+    {
+        if (!$this->renterRentals->contains($renterRental)) {
+            $this->renterRentals[] = $renterRental;
+            $renterRental->setRenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRenterRental(Rental $renterRental): self
+    {
+        if ($this->renterRentals->contains($renterRental)) {
+            $this->renterRentals->removeElement($renterRental);
+            // set the owning side to null (unless already changed)
+            if ($renterRental->getRenter() === $this) {
+                $renterRental->setRenter(null);
             }
         }
 
