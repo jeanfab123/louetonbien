@@ -129,7 +129,7 @@ class User implements UserInterface, \Serializable
     private $pickupPoints;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=30)
      */
     private $code;
 
@@ -174,6 +174,21 @@ class User implements UserInterface, \Serializable
     private $renterRentals;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="editor")
+     */
+    private $ratingsAsEditor;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="renter")
+     */
+    private $ratingsAsRenter;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="tenant")
+     */
+    private $ratingsAsTenant;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -203,6 +218,9 @@ class User implements UserInterface, \Serializable
         $this->itemRequests = new ArrayCollection();
         $this->rentals = new ArrayCollection();
         $this->renterRentals = new ArrayCollection();
+        $this->ratingsAsEditor = new ArrayCollection();
+        $this->ratingsAsRenter = new ArrayCollection();
+        $this->ratingsAsTenant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -699,6 +717,99 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($renterRental->getRenter() === $this) {
                 $renterRental->setRenter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatingsAsEditor(): Collection
+    {
+        return $this->ratingsAsEditor;
+    }
+
+    public function addRatingsAsEditor(Rating $ratingsAsEditor): self
+    {
+        if (!$this->ratingsAsEditor->contains($ratingsAsEditor)) {
+            $this->ratingsAsEditor[] = $ratingsAsEditor;
+            $ratingsAsEditor->setEditor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRatingsAsEditor(Rating $ratingsAsEditor): self
+    {
+        if ($this->ratingsAsEditor->contains($ratingsAsEditor)) {
+            $this->ratingsAsEditor->removeElement($ratingsAsEditor);
+            // set the owning side to null (unless already changed)
+            if ($ratingsAsEditor->getEditor() === $this) {
+                $ratingsAsEditor->setEditor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatingsAsRenter(): Collection
+    {
+        return $this->ratingsAsRenter;
+    }
+
+    public function addRatingsAsRenter(Rating $ratingsAsRenter): self
+    {
+        if (!$this->ratingsAsRenter->contains($ratingsAsRenter)) {
+            $this->ratingsAsRenter[] = $ratingsAsRenter;
+            $ratingsAsRenter->setRenter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRatingsAsRenter(Rating $ratingsAsRenter): self
+    {
+        if ($this->ratingsAsRenter->contains($ratingsAsRenter)) {
+            $this->ratingsAsRenter->removeElement($ratingsAsRenter);
+            // set the owning side to null (unless already changed)
+            if ($ratingsAsRenter->getRenter() === $this) {
+                $ratingsAsRenter->setRenter(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatingsAsTenant(): Collection
+    {
+        return $this->ratingsAsTenant;
+    }
+
+    public function addRatingsAsTenant(Rating $ratingsAsTenant): self
+    {
+        if (!$this->ratingsAsTenant->contains($ratingsAsTenant)) {
+            $this->ratingsAsTenant[] = $ratingsAsTenant;
+            $ratingsAsTenant->setTenant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRatingsAsTenant(Rating $ratingsAsTenant): self
+    {
+        if ($this->ratingsAsTenant->contains($ratingsAsTenant)) {
+            $this->ratingsAsTenant->removeElement($ratingsAsTenant);
+            // set the owning side to null (unless already changed)
+            if ($ratingsAsTenant->getTenant() === $this) {
+                $ratingsAsTenant->setTenant(null);
             }
         }
 

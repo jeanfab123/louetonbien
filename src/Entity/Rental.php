@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntitySlugTrait;
 
@@ -33,7 +35,7 @@ class Rental
     private $tenant;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=30)
      */
     private $code;
 
@@ -120,13 +122,25 @@ class Rental
     private $tenantComment;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Rating", mappedBy="rental")
+     */
+    private $ratings;
+
+    public function __construct()
+    {
+        $this->ratings = new ArrayCollection();
+    }
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
      */
     public function initializeDatasBeforeCreation()
     {
-        $this->generateCode();
+        $this->generateCode(
+            $this->getTenant()->getUsername() . $this->getRenter()->getUsername()
+        );
         $this->createdAt = new \DateTime();
     }
 
@@ -369,6 +383,37 @@ class Rental
     public function setTenantComment(?string $tenantComment): self
     {
         $this->tenantComment = $tenantComment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(Rating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setRental($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(Rating $rating): self
+    {
+        if ($this->ratings->contains($rating)) {
+            $this->ratings->removeElement($rating);
+            // set the owning side to null (unless already changed)
+            if ($rating->getRental() === $this) {
+                $rating->setRental(null);
+            }
+        }
 
         return $this;
     }

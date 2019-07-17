@@ -28,14 +28,14 @@ trait EntitySlugTrait
         return $randomString;
     }
 
-    public function generateCode(): void
+    public function generateCode(string $char): void
     {
-        $this->code = $this->generateString(10);
+        $this->code = substr(md5($char), 0, 10) . $this->generateString(10);
     }
 
-    public function generateSlug($char): void
+    public function generateSlug(string $char): void
     {
-        $this->generateCode();
+        $this->generateCode($char);
         $slugify = new Slugify();
         $this->slug = $slugify->slugify($char . ' ' . $this->code);
     }

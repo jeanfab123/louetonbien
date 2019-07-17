@@ -5,12 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\EntitySlugTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRequestRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class ItemRequest
 {
+
+    use EntitySlugTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -29,7 +34,7 @@ class ItemRequest
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=30)
      */
     private $code;
 
@@ -73,6 +78,37 @@ class ItemRequest
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $disabledAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $modifiedAt;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeCreation()
+    {
+        $this->generateSlug($this->user->getUsername());
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeUpdate()
+    {
+        $this->modifiedAt = new \DateTime();
+    }
 
     public function __construct()
     {
@@ -256,6 +292,30 @@ class ItemRequest
     public function setDisabledAt(?\DateTimeInterface $disabledAt): self
     {
         $this->disabledAt = $disabledAt;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(?\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

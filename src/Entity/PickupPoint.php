@@ -5,12 +5,17 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\EntitySlugTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PickupPointRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PickupPoint
 {
+
+    use EntitySlugTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -64,7 +69,7 @@ class PickupPoint
     private $pickupPointDayHours;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=30)
      */
     private $code;
 
@@ -82,6 +87,27 @@ class PickupPoint
      * @ORM\OneToMany(targetEntity="App\Entity\Rental", mappedBy="pickupPoint")
      */
     private $rentals;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeCreation()
+    {
+        $this->generateSlug($this->user->getUsername());
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeUpdate()
+    {
+        $this->modifiedAt = new \DateTime();
+    }
 
     public function __construct()
     {

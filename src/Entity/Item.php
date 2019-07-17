@@ -93,7 +93,7 @@ class Item
     private $prices;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=30)
      */
     private $code;
 
