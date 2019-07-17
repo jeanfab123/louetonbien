@@ -123,6 +123,11 @@ class Item
     private $rentals;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="item")
+     */
+    private $messages;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -150,6 +155,7 @@ class Item
         $this->pickupPoint = new ArrayCollection();
         $this->prices = new ArrayCollection();
         $this->rentals = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -461,6 +467,37 @@ class Item
             // set the owning side to null (unless already changed)
             if ($rental->getItem() === $this) {
                 $rental->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getItem() === $this) {
+                $message->setItem(null);
             }
         }
 

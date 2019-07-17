@@ -189,6 +189,16 @@ class User implements UserInterface, \Serializable
     private $ratingsAsTenant;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="sender")
+     */
+    private $messagesAsSender;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="recipient")
+     */
+    private $messagesAsRecipient;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -221,6 +231,8 @@ class User implements UserInterface, \Serializable
         $this->ratingsAsEditor = new ArrayCollection();
         $this->ratingsAsRenter = new ArrayCollection();
         $this->ratingsAsTenant = new ArrayCollection();
+        $this->messagesAsSender = new ArrayCollection();
+        $this->messagesAsRecipient = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -810,6 +822,68 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($ratingsAsTenant->getTenant() === $this) {
                 $ratingsAsTenant->setTenant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesAsSender(): Collection
+    {
+        return $this->messagesAsSender;
+    }
+
+    public function addMessagesAsSender(Message $messagesAsSender): self
+    {
+        if (!$this->messagesAsSender->contains($messagesAsSender)) {
+            $this->messagesAsSender[] = $messagesAsSender;
+            $messagesAsSender->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesAsSender(Message $messagesAsSender): self
+    {
+        if ($this->messagesAsSender->contains($messagesAsSender)) {
+            $this->messagesAsSender->removeElement($messagesAsSender);
+            // set the owning side to null (unless already changed)
+            if ($messagesAsSender->getSender() === $this) {
+                $messagesAsSender->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesAsRecipient(): Collection
+    {
+        return $this->messagesAsRecipient;
+    }
+
+    public function addMessagesAsRecipient(Message $messagesAsRecipient): self
+    {
+        if (!$this->messagesAsRecipient->contains($messagesAsRecipient)) {
+            $this->messagesAsRecipient[] = $messagesAsRecipient;
+            $messagesAsRecipient->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesAsRecipient(Message $messagesAsRecipient): self
+    {
+        if ($this->messagesAsRecipient->contains($messagesAsRecipient)) {
+            $this->messagesAsRecipient->removeElement($messagesAsRecipient);
+            // set the owning side to null (unless already changed)
+            if ($messagesAsRecipient->getRecipient() === $this) {
+                $messagesAsRecipient->setRecipient(null);
             }
         }
 
