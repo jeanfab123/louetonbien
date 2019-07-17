@@ -199,6 +199,11 @@ class User implements UserInterface, \Serializable
     private $messagesAsRecipient;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUnavailableDate", mappedBy="user", orphanRemoval=true)
+     */
+    private $userUnavailableDates;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -233,6 +238,7 @@ class User implements UserInterface, \Serializable
         $this->ratingsAsTenant = new ArrayCollection();
         $this->messagesAsSender = new ArrayCollection();
         $this->messagesAsRecipient = new ArrayCollection();
+        $this->userUnavailableDates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -884,6 +890,37 @@ class User implements UserInterface, \Serializable
             // set the owning side to null (unless already changed)
             if ($messagesAsRecipient->getRecipient() === $this) {
                 $messagesAsRecipient->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserUnavailableDate[]
+     */
+    public function getUserUnavailableDates(): Collection
+    {
+        return $this->userUnavailableDates;
+    }
+
+    public function addUserUnavailableDate(UserUnavailableDate $userUnavailableDate): self
+    {
+        if (!$this->userUnavailableDates->contains($userUnavailableDate)) {
+            $this->userUnavailableDates[] = $userUnavailableDate;
+            $userUnavailableDate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserUnavailableDate(UserUnavailableDate $userUnavailableDate): self
+    {
+        if ($this->userUnavailableDates->contains($userUnavailableDate)) {
+            $this->userUnavailableDates->removeElement($userUnavailableDate);
+            // set the owning side to null (unless already changed)
+            if ($userUnavailableDate->getUser() === $this) {
+                $userUnavailableDate->setUser(null);
             }
         }
 

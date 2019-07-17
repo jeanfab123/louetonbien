@@ -128,6 +128,11 @@ class Item
     private $messages;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUnavailableDate", mappedBy="item")
+     */
+    private $userUnavailableDates;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -156,6 +161,7 @@ class Item
         $this->prices = new ArrayCollection();
         $this->rentals = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->userUnavailableDates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -498,6 +504,37 @@ class Item
             // set the owning side to null (unless already changed)
             if ($message->getItem() === $this) {
                 $message->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserUnavailableDate[]
+     */
+    public function getUserUnavailableDates(): Collection
+    {
+        return $this->userUnavailableDates;
+    }
+
+    public function addUserUnavailableDate(UserUnavailableDate $userUnavailableDate): self
+    {
+        if (!$this->userUnavailableDates->contains($userUnavailableDate)) {
+            $this->userUnavailableDates[] = $userUnavailableDate;
+            $userUnavailableDate->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserUnavailableDate(UserUnavailableDate $userUnavailableDate): self
+    {
+        if ($this->userUnavailableDates->contains($userUnavailableDate)) {
+            $this->userUnavailableDates->removeElement($userUnavailableDate);
+            // set the owning side to null (unless already changed)
+            if ($userUnavailableDate->getItem() === $this) {
+                $userUnavailableDate->setItem(null);
             }
         }
 
