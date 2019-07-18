@@ -204,6 +204,11 @@ class User implements UserInterface, \Serializable
     private $userUnavailableDates;
 
     /**
+     * @ORM\Column(type="array")
+     */
+    private $roles = [];
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -213,6 +218,9 @@ class User implements UserInterface, \Serializable
         $this->generateSlug($this->username);
         $this->createdAt = new \DateTime();
         $this->state = 'UNVALIDATED';
+        if (empty($this->roles)) {
+            $this->roles = ['ROLE_USER'];
+        }
     }
 
     /**
@@ -272,7 +280,7 @@ class User implements UserInterface, \Serializable
 
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        return $this->roles;
     }
 
     public function getSalt()
@@ -923,6 +931,13 @@ class User implements UserInterface, \Serializable
                 $userUnavailableDate->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }
