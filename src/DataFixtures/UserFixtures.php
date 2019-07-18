@@ -33,6 +33,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
                 ->setZipcode((int) substr($faker->postcode, 0, 5))
                 ->setCity($faker->city)
                 ->setCountry($faker->country)
+                //->setPassword('demo');
                 ->setPassword($this->encoder->encodePassword($user, 'demo'));
             $manager->persist($user);
             $manager->flush();
