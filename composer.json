@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "cocur/slugify": "^3.2",
+        "easycorp/easyadmin-bundle": "^2.2",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
@@ -25,7 +26,8 @@
         "symfony/validator": "4.2.*",
         "symfony/web-link": "4.2.*",
         "symfony/webpack-encore-bundle": "^1.5",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "twig/twig": "^2.11"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.1",
