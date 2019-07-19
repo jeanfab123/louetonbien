@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Rubric:
+            class: App\Entity\Rubric
+            list:
+                fields: ['name']
+            form:
+                fields:
+                    - {property: 'name'}

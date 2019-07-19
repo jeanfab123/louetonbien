@@ -1,0 +1,9 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'Structure'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Area',  label: 'Zones'}
+                  - {entity: 'Rubric',  label: 'Rubriques'}
+                  - {entity: 'Category',  label: 'Catégories'}

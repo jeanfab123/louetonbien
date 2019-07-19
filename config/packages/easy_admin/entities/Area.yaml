@@ -1,0 +1,9 @@
+easy_admin:
+    entities:
+        Area:
+            class: App\Entity\Area
+            list:
+                fields: ['title']
+            form:
+                fields:
+                    - {property: 'title'}
