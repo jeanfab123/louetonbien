@@ -90,7 +90,7 @@ class Rental
     private $realItemAllPrices = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\pickupPoint", inversedBy="rentals")
+     * @ORM\ManyToOne(targetEntity="App\Entity\PickupPoint", inversedBy="rentals")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pickupPoint;

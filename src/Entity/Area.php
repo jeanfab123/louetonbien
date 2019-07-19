@@ -28,7 +28,7 @@ class Area
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\rubric", mappedBy="area")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Rubric", mappedBy="area")
      */
     private $rubric;
 

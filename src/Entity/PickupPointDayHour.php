@@ -32,7 +32,7 @@ class PickupPointDayHour
     private $end;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\pickupPoint", inversedBy="pickupPointDayHours")
+     * @ORM\ManyToOne(targetEntity="App\Entity\PickupPoint", inversedBy="pickupPointDayHours")
      * @ORM\JoinColumn(nullable=false)
      */
     private $pickupPoint;

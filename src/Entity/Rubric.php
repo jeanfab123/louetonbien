@@ -43,7 +43,7 @@ class Rubric
     private $slug;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\category", mappedBy="rubric")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="rubric")
      */
     private $category;
 

@@ -42,7 +42,7 @@ class Item
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\category", inversedBy="items")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", inversedBy="items")
      */
     private $category;
 
@@ -83,7 +83,7 @@ class Item
     private $similarItemsNumber;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\pickupPoint", inversedBy="items")
+     * @ORM\ManyToMany(targetEntity="App\Entity\PickupPoint", inversedBy="items")
      */
     private $pickupPoint;
 

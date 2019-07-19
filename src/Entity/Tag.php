@@ -38,18 +38,18 @@ class Tag
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\item", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", inversedBy="tags")
      */
     private $item;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="tags")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tags")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\rubric", inversedBy="tags")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Rubric", inversedBy="tags")
      */
     private $rubric;
 
