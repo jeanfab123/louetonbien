@@ -1,9 +1,26 @@
 easy_admin:
     entities:
-        Area:
+        Zone:
             class: App\Entity\Area
+            disabled_actions: ['delete']
+            search:
+                fields: ['title', 'description', 'attributes']
             list:
-                fields: ['title']
-            form:
                 fields:
-                    - {property: 'title'}
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'title', label: 'Titre'}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'rubric', label: 'Rubriques'}
+                    - {property: 'attributes', label: 'Attributs'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification de zone"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'slug', label: 'Slug', type_options: { disabled: true }, help: 'Identifiant pour url'}
+                    - {property: 'title', label: 'Titre'}
+                    - {property: 'description', label: 'Description'}
+                    - {property: 'attributes', label: 'Attributs'}

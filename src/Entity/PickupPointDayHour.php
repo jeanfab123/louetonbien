@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PickupPointDayHourRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class PickupPointDayHour
 {
@@ -41,6 +42,16 @@ class PickupPointDayHour
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeCreation()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

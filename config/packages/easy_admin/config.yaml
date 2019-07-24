@@ -1,2 +1,7 @@
 easy_admin:
     site_name: 'Administration'
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+        number:   '%.2f'

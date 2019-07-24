@@ -21,6 +21,14 @@ class User implements UserInterface, \Serializable
 
     use EntitySlugTrait;
 
+    const ALL_STATES = [
+        'UNVALIDATED' => 'Non validé',
+        'VALIDATED' => 'Validé',
+        'SUSPENDED' => 'Suspendu',
+        'CLOSED' => 'Fermé',
+        'BANNED' => 'Banni'
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -606,6 +614,11 @@ class User implements UserInterface, \Serializable
         $this->state = $state;
 
         return $this;
+    }
+
+    public function getAllStates()
+    {
+        return self::ALL_STATES;
     }
 
     public function getValidatedAt(): ?\DateTimeInterface

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PriceRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Price
 {
@@ -42,6 +43,26 @@ class Price
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $modifiedAt;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeCreation()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function initializeDatasBeforeUpdate()
+    {
+        $this->modifiedAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -110,6 +131,6 @@ class Price
 
     public function __toString()
     {
-        return $this->id;
+        return $this->item->getName() . ', ' . $this->duration->getName() . ' -> ' . $this->getPrice() . '€';
     }
 }

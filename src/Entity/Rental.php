@@ -420,6 +420,6 @@ class Rental
 
     public function __toString()
     {
-        return $this->id;
+        return $this->code;
     }
 }

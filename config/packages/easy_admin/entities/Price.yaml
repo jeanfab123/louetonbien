@@ -1,0 +1,24 @@
+easy_admin:
+    entities:
+        Prix:
+            class: App\Entity\Price
+            search:
+                fields: ['price', 'item.user.username', 'item.user.email', 'duration.name', 'item.name']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'item.user.username', label: 'Utilisateur'}
+                    - {property: 'item.user.email', label: 'Email'}
+                    - {property: 'item', label: 'Produit'}
+                    - {property: 'duration', label: 'Forfait'}
+                    - {property: 'price', label: 'Prix (€)'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion de prix pour un produit"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'item', label: 'Produit'}
+                    - {property: 'duration', label: 'Forfait'}
+                    - {property: 'price', label: 'Prix (€)'}

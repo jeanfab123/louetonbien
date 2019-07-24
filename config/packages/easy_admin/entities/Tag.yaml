@@ -1,0 +1,78 @@
+easy_admin:
+    entities:
+        Tag:
+            class: App\Entity\Tag
+            search:
+                fields: ['name']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'item', label: 'Produit(s)'}
+                    - {property: 'rubric', label: 'Rubrique(s)'}
+                    - {property: 'user', label: 'Créé par'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion de tag"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'description', label: 'Description'}
+                    - {property: 'user', label: 'Créé par'}
+                    - {property: 'item', label: 'Produit(s)'}
+                    - {property: 'rubric', label: 'Rubrique(s)'}
+        TagCat:
+            class: App\Entity\Tag
+            search:
+                fields: ['name']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'rubric', label: 'Rubrique(s)'}
+                    - {property: 'user', label: 'Créé par'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion de tag"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'description', label: 'Description'}
+                    - {property: 'user', label: 'Créé par'}
+                    - {property: 'rubric', label: 'Rubrique'}
+        TagSimple:
+            class: App\Entity\Tag
+            search:
+                fields: ['name']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'user', label: 'Créé par'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion de tag"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'description', label: 'Description'}
+                    - {property: 'user', label: 'Créé par'}
+                    - {property: 'rubric', label: 'Rubrique'}

@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        Attribut:
+          class: App\Entity\Attribute
+          search:
+              fields: ['name', 'description']
+          list:
+              fields:
+              - {property: 'id', label: 'ID'}
+              - {property: 'name', label: 'Nom'}
+              - {property: 'attributeValues', label: "Valeurs d'attributs"}
+              - {property: 'category', label: 'Catégories'}
+              - {property: 'rubric', label: 'Rubriques'}
+              - {property: 'area', label: 'Zones'}
+              actions:
+                  - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                  - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+          form:
+              title: "Modification d'attribut"
+              fields:
+                  - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                  - {property: 'name', label: 'Nom'}
+                  - {property: 'attributeValues', label: "Valeurs d'attributs"}
+                  - {property: 'category', label: 'Catégories'}
+                  - {property: 'rubric', label: 'Rubriques'}
+                  - {property: 'area', label: 'Zones'}

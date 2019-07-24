@@ -1,0 +1,31 @@
+easy_admin:
+    entities:
+        PointDeRetrait:
+            class: App\Entity\PickupPoint
+            search:
+                fields: ['user.username', 'name', 'address', 'zipcode', 'city', 'country', 'furtherInformation']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'user', label: 'Utilisateur'}
+                    - {property: 'user.email', label: 'Email'}
+                    - {property: 'name', label: 'Label'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'items', label: 'Produit(s)'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion de point de retrait"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
+                    - {property: 'user', label: 'Utilisateur'}
+                    - {property: 'name', label: 'Nom du point retrait'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'furtherInformation', label: 'Informations complémentaires'}

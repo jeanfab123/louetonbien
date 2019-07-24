@@ -1,9 +1,21 @@
 easy_admin:
     entities:
-        Category:
+        Categorie:
             class: App\Entity\Category
+            disabled_actions: ['delete']
             list:
-                fields: ['name']
-            form:
                 fields:
-                    - {property: 'name'}
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'slug', label: 'Slug'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'items', label: 'Produits'}
+                    - {property: 'attributes', label: 'Attributs'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: 'Modification de catégorie'
+                fields:
+                    - {property: 'name', label: 'Nom'}
+                    - {property: 'description', label: 'Description'}
+                    - {property: 'attributes', label: 'Attributs'}

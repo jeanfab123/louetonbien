@@ -1,0 +1,23 @@
+easy_admin:
+    entities:
+        ValeurDAttribut:
+          class: App\Entity\AttributeValue
+          search:
+              fields: ['value', 'description']
+          list:
+              fields:
+              - {property: 'id', label: 'ID'}
+              - {property: 'value', label: 'Valeur'}
+              - {property: 'slug', label: 'Slug'}
+              - {property: 'attribute', label: "Attribut"}
+              actions:
+                  - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                  - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+          form:
+              title: "Modification de valeur d'attribut"
+              fields:
+                  - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                  - {property: 'slug', label: "Slug", type_options: { disabled: true }}
+                  - {property: 'value', label: 'Valeur'}
+                  - {property: 'attribute', label: "Attribut"}
+                  - {property: 'description', label: "Description"}

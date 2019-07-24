@@ -1,0 +1,235 @@
+easy_admin:
+    entities:
+        Utilisateur:
+            class: App\Entity\User
+            disabled_actions: ['delete']
+            list:
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+                    - {property: 'renterRentals', label: 'Locations (loueur)', type_options: { disabled: true }}
+                    - {property: 'rentals', label: 'Locations (locataire)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsRenter', label: 'Notes (loueur)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
+                    - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
+                    - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}
+        UtilisateurNonValide:
+            class: App\Entity\User
+            disabled_actions: ['new', 'delete']
+            list:
+                dql_filter: "entity.state = 'UNVALIDATED'"
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+        UtilisateurValide:
+            class: App\Entity\User
+            disabled_actions: ['new', 'delete']
+            list:
+                dql_filter: "entity.state = 'VALIDATED'"
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+                    - {property: 'renterRentals', label: 'Locations (loueur)', type_options: { disabled: true }}
+                    - {property: 'rentals', label: 'Locations (locataire)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsRenter', label: 'Notes (loueur)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
+                    - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
+                    - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}
+        UtilisateurFerme:
+            class: App\Entity\User
+            disabled_actions: ['new', 'delete']
+            list:
+                dql_filter: "entity.state = 'CLOSED'"
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+                    - {property: 'renterRentals', label: 'Locations (loueur)', type_options: { disabled: true }}
+                    - {property: 'rentals', label: 'Locations (locataire)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsRenter', label: 'Notes (loueur)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
+                    - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
+                    - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}
+        UtilisateurSuspendu:
+            class: App\Entity\User
+            disabled_actions: ['new', 'delete']
+            list:
+                dql_filter: "entity.state = 'SUSPENDED'"
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+                    - {property: 'renterRentals', label: 'Locations (loueur)', type_options: { disabled: true }}
+                    - {property: 'rentals', label: 'Locations (locataire)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsRenter', label: 'Notes (loueur)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
+                    - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
+                    - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}
+        UtilisateurBanni:
+            class: App\Entity\User
+            disabled_actions: ['new', 'delete']
+            list:
+                dql_filter: "entity.state = 'BANNED'"
+                fields:
+                    - {property: 'ID', label: 'Id'}
+                    - {property: 'username', label: 'Pseudo'}
+                    - {property: 'email', label: 'Email'}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'createdAt', label: 'Inscrit le'}
+                    - {property: 'state', label: '&Eacute;tat'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Modification d'un utilisateur"
+                fields:
+                    - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
+                    - {property: 'email', label: 'email'}
+                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'lastname', label: 'Nom'}
+                    - {property: 'firstname', label: 'Prénom'}
+                    - {property: 'address', label: 'Adresse'}
+                    - {property: 'zipcode', label: 'Code postal'}
+                    - {property: 'city', label: 'Ville'}
+                    - {property: 'country', label: 'Pays'}
+                    - {property: 'fixedPhone', label: 'Téléphone fixe'}
+                    - {property: 'mobilePhone', label: 'Téléphone mobile'}
+                    - {property: 'officePhone', label: 'Téléphone du bureau'}
+                    - {property: 'renterRentals', label: 'Locations (loueur)', type_options: { disabled: true }}
+                    - {property: 'rentals', label: 'Locations (locataire)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsRenter', label: 'Notes (loueur)', type_options: { disabled: true }}
+                    - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
+                    - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
+                    - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}

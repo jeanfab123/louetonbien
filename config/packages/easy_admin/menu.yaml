@@ -4,6 +4,40 @@ easy_admin:
             - label: 'Structure'
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Area',  label: 'Zones'}
-                  - {entity: 'Rubric',  label: 'Rubriques'}
-                  - {entity: 'Category',  label: 'Catégories'}
+                  - {entity: 'Zone',  label: 'Zones'}
+                  - {entity: 'Rubrique',  label: 'Rubriques'}
+                  - {entity: 'Categorie',  label: 'Catégories'}
+                  - {entity: 'Attribut',  label: 'Attributs'}
+                  - {entity: 'ValeurDAttribut',  label: "Valeurs d'attribut"}
+            - label: 'Gestion des produits'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Produit',  label: 'Tous les produits'}
+                  - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
+                  - {entity: 'ProduitHorsLigne',  label: 'Produits hors ligne'}
+                  - {entity: 'Tag',  label: 'Tous les tags'}
+            - label: 'Gestion des demandes'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Demande',  label: "Toutes les demandes"}
+                  - {entity: 'DemandeEnLigne',  label: "Demandes en ligne"}
+                  - {entity: 'DemandeHorsLigne',  label: "Demandes hors ligne"}
+            - label: 'Comptes'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Utilisateur',  label: 'Tous les comptes'}
+                  - {entity: 'UtilisateurNonValide',  label: 'Comptes non validés'}
+                  - {entity: 'UtilisateurValide',  label: 'Comptes validés'}
+                  - {entity: 'UtilisateurFerme',  label: 'Comptes fermés'}
+                  - {entity: 'UtilisateurSuspendu',  label: 'Comptes suspendus'}
+                  - {entity: 'UtilisateurBanni',  label: 'Comptes bannis'}
+            - label: 'Points de retrait'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'PointDeRetrait',  label: 'Tous les points de retrait'}
+                  - {entity: 'PointDeRetraitJourHeure',  label: 'Toutes les tranches horaires'}
+            - label: 'Locations'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Forfait',  label: 'Tous les forfaits'}
+                  - {entity: 'Prix',  label: 'Tous les prix des produits'}

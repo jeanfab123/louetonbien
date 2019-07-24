@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        PointDeRetraitJourHeure:
+            class: App\Entity\PickupPointDayHour
+            search:
+                fields: ['pickupPoint.user.username', 'pickupPoint.user.email']
+            list:
+                fields:
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'pickupPoint.user.username', label: 'Utilisateur'}
+                    - {property: 'pickupPoint.user.email', label: 'Email'}
+                    - {property: 'pickupPoint', label: 'Point de retrait'}
+                    - {property: 'day', label: 'Jour', format: '%.0f'}
+                    - {property: 'begin', label: 'Heure de début'}
+                    - {property: 'end', label: 'Heure de fin'}
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form:
+                title: "Gestion des tranches horaires"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'pickupPoint', label: 'Point de retrait'}
+                    - {property: 'day', label: 'Jour', format: '%.0f'}
+                    - {property: 'begin', label: 'Heure de début'}
+                    - {property: 'end', label: 'Heure de fin'}

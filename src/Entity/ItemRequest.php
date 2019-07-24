@@ -96,7 +96,8 @@ class ItemRequest
      */
     public function initializeDatasBeforeCreation()
     {
-        $this->generateSlug($this->user->getUsername());
+        //$this->generateSlug($this->user->getUsername());
+        $this->generateSlug($this->getName());
         $this->createdAt = new \DateTime();
     }
 

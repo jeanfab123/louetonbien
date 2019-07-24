@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AttributeValueRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class AttributeValue
 {
@@ -36,6 +38,19 @@ class AttributeValue
      * @ORM\JoinColumn(nullable=false)
      */
     private $attribute;
+
+    /**
+     * @ORM\PrePersist
+     * 
+     * @return void
+     */
+    public function initializeSlug()
+    {
+        if (empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug = $slugify->slugify($this->value);
+        }
+    }
 
     public function getId(): ?int
     {
