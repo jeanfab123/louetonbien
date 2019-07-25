@@ -3,7 +3,7 @@ easy_admin:
         ValeurDAttribut:
           class: App\Entity\AttributeValue
           search:
-              fields: ['value', 'description']
+              fields: ['value', 'description', 'attribute.name']
           list:
               fields:
               - {property: 'id', label: 'ID'}

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +40,16 @@ class AttributeValue
      * @ORM\JoinColumn(nullable=false)
      */
     private $attribute;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Item", mappedBy="AttributeValue")
+     */
+    private $items;
+
+    public function __construct()
+    {
+        $this->items = new ArrayCollection();
+    }
 
     /**
      * @ORM\PrePersist
@@ -108,5 +120,33 @@ class AttributeValue
     public function __toString()
     {
         return $this->value;
+    }
+
+    /**
+     * @return Collection|Item[]
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): self
+    {
+        if (!$this->items->contains($item)) {
+            $this->items[] = $item;
+            $item->addAttributeValue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): self
+    {
+        if ($this->items->contains($item)) {
+            $this->items->removeElement($item);
+            $item->removeAttributeValue($this);
+        }
+
+        return $this;
     }
 }

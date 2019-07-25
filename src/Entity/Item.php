@@ -133,6 +133,11 @@ class Item
     private $userUnavailableDates;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\AttributeValue", inversedBy="items")
+     */
+    private $AttributeValue;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -163,6 +168,7 @@ class Item
         $this->rentals = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->userUnavailableDates = new ArrayCollection();
+        $this->AttributeValue = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -545,5 +551,31 @@ class Item
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|AttributeValue[]
+     */
+    public function getAttributeValue(): Collection
+    {
+        return $this->AttributeValue;
+    }
+
+    public function addAttributeValue(AttributeValue $attributeValue): self
+    {
+        if (!$this->AttributeValue->contains($attributeValue)) {
+            $this->AttributeValue[] = $attributeValue;
+        }
+
+        return $this;
+    }
+
+    public function removeAttributeValue(AttributeValue $attributeValue): self
+    {
+        if ($this->AttributeValue->contains($attributeValue)) {
+            $this->AttributeValue->removeElement($attributeValue);
+        }
+
+        return $this;
     }
 }

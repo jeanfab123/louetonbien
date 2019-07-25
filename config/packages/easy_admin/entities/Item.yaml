@@ -3,20 +3,20 @@ easy_admin:
         Produit:
             class: App\Entity\Item
             disabled_actions: ['delete']
-            search:
+            search: &itemSearch
                 fields: ['name', 'description']
             list:
-                fields:
+                fields: &itemListFields
                     - {property: 'id', label: 'ID'}
                     - {property: 'name', label: 'Nom'}
                     - {property: 'category', label: 'Catégories'}
                     - {property: 'rentals', label: 'Locations'}
                     - {property: 'viewsNumber', label: 'Nombre de vues'}
                     - {property: 'enabled', label: 'Activé ?'}
-                actions:
+                actions: &itemActions
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
+            form: &itemForm
                 title: "Gestion de produit"
                 fields:
                     - {property: 'id', label: 'ID', type_options: { disabled: true }}
@@ -38,73 +38,18 @@ easy_admin:
         ProduitEnLigne:
             class: App\Entity\Item
             disabled_actions: ['new', 'delete']
-            search:
-                fields: ['name', 'description']
+            search: *itemSearch
             list:
                 dql_filter: 'entity.enabled = 1'
-                fields:
-                    - {property: 'id', label: 'ID'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'category', label: 'Catégories'}
-                    - {property: 'rentals', label: 'Locations'}
-                    - {property: 'viewsNumber', label: 'Nombre de vues'}
-                    - {property: 'enabled', label: 'Activé ?'}
-                actions:
-                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
-                title: "Gestion de produit"
-                fields:
-                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
-                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
-                    - {property: 'slug', label: 'Slug', type_options: { disabled: true }}
-                    - {property: 'user', label: 'Utilisateur', type: 'text', type_options: { disabled: true }}
-                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
-                    - {property: 'enabled', label: 'Activé ?'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'description', label: 'Description'}
-                    - {property: 'category', label: 'Catégories'}
-                    - {property: 'tags', label: 'Tags'}
-                    - {property: 'depositAmount', label: 'Acompte (€)'}
-                    - {property: 'similarItemsNumber', label: 'Nombre de produits similaires'}
-                    - {property: 'pickupPoint', label: 'Points de retrait'}
-                    - {property: 'prices', label: 'Prix'}
-                    - {property: 'rentals', label: 'Locations', type_options: { disabled: true }}
-                    - {property: 'viewsNumber', label: 'Nombre de vues', type_options: { disabled: true }}
-                    - {property: 'enabled', label: 'Activé ?'}
+                fields: *itemListFields
+                actions: *itemActions
+            form: *itemForm
         ProduitHorsLigne:
             class: App\Entity\Item
             disabled_actions: ['new', 'delete']
-            search:
-                fields: ['name', 'description']
+            search: *itemSearch
             list:
                 dql_filter: 'entity.enabled = 0'
-                fields:
-                    - {property: 'id', label: 'ID'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'category', label: 'Catégories'}
-                    - {property: 'rentals', label: 'Locations'}
-                    - {property: 'viewsNumber', label: 'Nombre de vues'}
-                    - {property: 'enabled', label: 'Activé ?'}
-                actions:
-                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
-                title: "Gestion de produit"
-                fields:
-                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
-                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
-                    - {property: 'slug', label: 'Slug', type_options: { disabled: true }}
-                    - {property: 'user', label: 'Utilisateur', type: 'text', type_options: { disabled: true }}
-                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
-                    - {property: 'enabled', label: 'Activé ?'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'description', label: 'Description'}
-                    - {property: 'category', label: 'Catégories'}
-                    - {property: 'tags', label: 'Tags'}
-                    - {property: 'depositAmount', label: 'Acompte (€)'}
-                    - {property: 'similarItemsNumber', label: 'Nombre de produits similaires'}
-                    - {property: 'pickupPoint', label: 'Points de retrait'}
-                    - {property: 'prices', label: 'Prix'}
-                    - {property: 'rentals', label: 'Locations', type_options: { disabled: true }}
-                    - {property: 'viewsNumber', label: 'Nombre de vues', type_options: { disabled: true }}
+                fields: *itemListFields
+                actions: *itemActions
+            form: *itemForm

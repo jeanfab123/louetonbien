@@ -6,17 +6,17 @@ easy_admin:
             search:
                 fields: ['name', 'description']
             list:
-                fields:
+                fields: &itemRequestListFields
                     - {property: 'id', label: 'ID'}
                     - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
                     - {property: 'name', label: 'Nom'}
                     - {property: 'category', label: 'Catégorie(s)'}
                     - {property: 'user', label: 'Créé par'}
                     - {property: 'enabled', label: 'Activé ?'}
-                actions:
+                actions: &itemRequestActions
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
+            form: &itemRequestForm
                 title: "Gestion de demande"
                 fields:
                     - {property: 'id', label: 'ID', type_options: { disabled: true }}
@@ -35,27 +35,9 @@ easy_admin:
                 fields: ['name', 'description']
             list:
                 dql_filter: 'entity.enabled = 1'
-                fields:
-                    - {property: 'id', label: 'ID'}
-                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'category', label: 'Catégorie(s)'}
-                    - {property: 'user', label: 'Créé par'}
-                    - {property: 'enabled', label: 'Activé ?'}
-                actions:
-                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
-                title: "Gestion de demande"
-                fields:
-                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
-                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
-                    - {property: 'slug', label: 'Slug', type_options: { disabled: true }}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'description', label: 'Description'}
-                    - {property: 'user', label: 'Créé par'}
-                    - {property: 'category', label: 'Catégorie'}
-                    - {property: 'enabled', label: 'Activé ?'}
+                fields: *itemRequestListFields
+                actions: *itemRequestActions
+            form: *itemRequestForm
         DemandeHorsLigne:
             class: App\Entity\ItemRequest
             disabled_actions: ['new', 'delete']
@@ -63,24 +45,6 @@ easy_admin:
                 fields: ['name', 'description']
             list:
                 dql_filter: 'entity.enabled = 0'
-                fields:
-                    - {property: 'id', label: 'ID'}
-                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'category', label: 'Catégorie(s)'}
-                    - {property: 'user', label: 'Créé par'}
-                    - {property: 'enabled', label: 'Activé ?'}
-                actions:
-                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
-                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-            form:
-                title: "Gestion de demande"
-                fields:
-                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
-                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
-                    - {property: 'slug', label: 'Slug', type_options: { disabled: true }}
-                    - {property: 'name', label: 'Nom'}
-                    - {property: 'description', label: 'Description'}
-                    - {property: 'user', label: 'Créé par'}
-                    - {property: 'category', label: 'Catégorie'}
-                    - {property: 'enabled', label: 'Activé ?'}
+                fields: *itemRequestListFields
+                actions: *itemRequestActions
+            form: *itemRequestForm

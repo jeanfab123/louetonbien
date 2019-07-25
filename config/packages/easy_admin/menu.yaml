@@ -15,7 +15,12 @@ easy_admin:
                   - {entity: 'Produit',  label: 'Tous les produits'}
                   - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
                   - {entity: 'ProduitHorsLigne',  label: 'Produits hors ligne'}
+            - label: 'Gestion des tags'
+              icon: 'newspaper-o'
+              children:
                   - {entity: 'Tag',  label: 'Tous les tags'}
+                  - {entity: 'TagSimple',  label: 'Tags simples'}
+                  - {entity: 'TagCat',  label: 'Tags liés aux rubriques'}
             - label: 'Gestion des demandes'
               icon: 'newspaper-o'
               children:
