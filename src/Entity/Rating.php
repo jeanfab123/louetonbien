@@ -88,7 +88,7 @@ class Rating
     private $createdAt;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $enabled;
 

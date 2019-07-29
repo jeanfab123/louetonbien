@@ -52,7 +52,7 @@ class ItemRequestAnswer
     private $modifiedAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $enabled;
 
