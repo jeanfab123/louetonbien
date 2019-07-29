@@ -90,6 +90,11 @@ class ItemRequest
     private $modifiedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemRequestAnswer", mappedBy="itemRequest")
+     */
+    private $itemRequestAnswers;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -116,6 +121,7 @@ class ItemRequest
         $this->category = new ArrayCollection();
         $this->rubric = new ArrayCollection();
         $this->area = new ArrayCollection();
+        $this->itemRequestAnswers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -324,5 +330,36 @@ class ItemRequest
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection|ItemRequestAnswer[]
+     */
+    public function getItemRequestAnswers(): Collection
+    {
+        return $this->itemRequestAnswers;
+    }
+
+    public function addItemRequestAnswer(ItemRequestAnswer $itemRequestAnswer): self
+    {
+        if (!$this->itemRequestAnswers->contains($itemRequestAnswer)) {
+            $this->itemRequestAnswers[] = $itemRequestAnswer;
+            $itemRequestAnswer->setItemRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequestAnswer(ItemRequestAnswer $itemRequestAnswer): self
+    {
+        if ($this->itemRequestAnswers->contains($itemRequestAnswer)) {
+            $this->itemRequestAnswers->removeElement($itemRequestAnswer);
+            // set the owning side to null (unless already changed)
+            if ($itemRequestAnswer->getItemRequest() === $this) {
+                $itemRequestAnswer->setItemRequest(null);
+            }
+        }
+
+        return $this;
     }
 }

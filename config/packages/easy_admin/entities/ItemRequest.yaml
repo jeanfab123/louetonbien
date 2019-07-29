@@ -48,3 +48,13 @@ easy_admin:
                 fields: *itemRequestListFields
                 actions: *itemRequestActions
             form: *itemRequestForm
+        DemandeNonPourvue:
+            class: App\Entity\ItemRequest
+            disabled_actions: ['new', 'delete']
+            search:
+                fields: ['name', 'description']
+            list:
+                dql_filter: 'entity.enabled = 40000000000000'
+                fields: *itemRequestListFields
+                actions: *itemRequestActions
+            form: *itemRequestForm

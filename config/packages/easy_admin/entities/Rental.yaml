@@ -1,0 +1,29 @@
+easy_admin:
+    entities:
+        Location:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'edit', 'new']
+            search: &rentalSearch
+                fields: ['rental.item.name', 'code']
+            list:
+                fields: &rentalListFields
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'code', label: 'Code'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/y'}
+                    - {property: 'realItemName', label: 'Produit'}
+                    - {property: 'renter', label: 'Loueur'}
+                    - {property: 'tenant', label: 'Locataire'}
+                    - {property: 'amount', label: 'Montant', format: '%.0F €'}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                actions: &rentalActions
+                    - {name: 'view', icon: 'eye', label: false, css_class: 'btn btn-secondary'}
+            view:
+                title: "Gestion des évaluations"
+                fields: &rentalList
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/y', type_options: { disabled: true }}
+                    - {property: 'renter', label: 'Loueur', type_options: { disabled: true }}
+                    - {property: 'tenant', label: 'Locataire', type_options: { disabled: true }}
+                    - {property: 'amount', label: 'Montant', format: '%.0F €', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}

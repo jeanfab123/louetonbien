@@ -113,6 +113,7 @@ class Rating
                 . $this->tenant->getUsername()
         );
         $this->createdAt = new \DateTime();
+        $this->enabled = false;
     }
 
     public function getId(): ?int

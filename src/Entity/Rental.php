@@ -126,6 +126,11 @@ class Rental
      */
     private $ratings;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $amount;
+
     public function __construct()
     {
         $this->ratings = new ArrayCollection();
@@ -141,6 +146,7 @@ class Rental
         $this->generateCode(
             $this->getTenant()->getUsername() . $this->getRenter()->getUsername()
         );
+        $this->state = 'WAITING';
         $this->createdAt = new \DateTime();
     }
 
@@ -420,6 +426,18 @@ class Rental
 
     public function __toString()
     {
-        return $this->code;
+        return $this->realItemName . ' (' . $this->code . ')';
+    }
+
+    public function getAmount(): ?float
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(float $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
     }
 }

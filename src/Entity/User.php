@@ -255,6 +255,8 @@ class User implements UserInterface, \Serializable
         $this->messagesAsSender = new ArrayCollection();
         $this->messagesAsRecipient = new ArrayCollection();
         $this->userUnavailableDates = new ArrayCollection();
+        $this->potentialRenterItemRequestAnswers = new ArrayCollection();
+        $this->requesterItemRequestAnswers = new ArrayCollection();
     }
 
     public function getId(): ?int

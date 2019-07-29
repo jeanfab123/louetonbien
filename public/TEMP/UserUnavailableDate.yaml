@@ -1,0 +1,4 @@
+easy_admin:
+    entities:
+        UserUnavailableDate:
+            class: App\Entity\UserUnavailableDate

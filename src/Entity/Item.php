@@ -135,7 +135,12 @@ class Item
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\AttributeValue", inversedBy="items")
      */
-    private $AttributeValue;
+    private $attributeValue;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ItemRequestAnswer", mappedBy="item")
+     */
+    private $itemRequestAnswers;
 
     /**
      * @ORM\PrePersist
@@ -168,7 +173,8 @@ class Item
         $this->rentals = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->userUnavailableDates = new ArrayCollection();
-        $this->AttributeValue = new ArrayCollection();
+        $this->attributeValue = new ArrayCollection();
+        $this->itemRequestAnswers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -558,13 +564,13 @@ class Item
      */
     public function getAttributeValue(): Collection
     {
-        return $this->AttributeValue;
+        return $this->attributeValue;
     }
 
     public function addAttributeValue(AttributeValue $attributeValue): self
     {
-        if (!$this->AttributeValue->contains($attributeValue)) {
-            $this->AttributeValue[] = $attributeValue;
+        if (!$this->attributeValue->contains($attributeValue)) {
+            $this->attributeValue[] = $attributeValue;
         }
 
         return $this;
@@ -572,8 +578,39 @@ class Item
 
     public function removeAttributeValue(AttributeValue $attributeValue): self
     {
-        if ($this->AttributeValue->contains($attributeValue)) {
-            $this->AttributeValue->removeElement($attributeValue);
+        if ($this->attributeValue->contains($attributeValue)) {
+            $this->attributeValue->removeElement($attributeValue);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ItemRequestAnswer[]
+     */
+    public function getItemRequestAnswers(): Collection
+    {
+        return $this->itemRequestAnswers;
+    }
+
+    public function addItemRequestAnswer(ItemRequestAnswer $itemRequestAnswer): self
+    {
+        if (!$this->itemRequestAnswers->contains($itemRequestAnswer)) {
+            $this->itemRequestAnswers[] = $itemRequestAnswer;
+            $itemRequestAnswer->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequestAnswer(ItemRequestAnswer $itemRequestAnswer): self
+    {
+        if ($this->itemRequestAnswers->contains($itemRequestAnswer)) {
+            $this->itemRequestAnswers->removeElement($itemRequestAnswer);
+            // set the owning side to null (unless already changed)
+            if ($itemRequestAnswer->getItem() === $this) {
+                $itemRequestAnswer->setItem(null);
+            }
         }
 
         return $this;

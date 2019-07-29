@@ -10,6 +10,8 @@ easy_admin:
                     - {property: 'id', label: 'ID'}
                     - {property: 'name', label: 'Nom'}
                     - {property: 'category', label: 'Catégories'}
+                    - {property: 'attributeValue', label: 'Attributs'}
+                    - {property: 'tags', label: 'Tags'}
                     - {property: 'rentals', label: 'Locations'}
                     - {property: 'viewsNumber', label: 'Nombre de vues'}
                     - {property: 'enabled', label: 'Activé ?'}
@@ -28,6 +30,7 @@ easy_admin:
                     - {property: 'name', label: 'Nom'}
                     - {property: 'description', label: 'Description'}
                     - {property: 'category', label: 'Catégories'}
+                    - {property: 'attributeValue', label: 'Attributs'}
                     - {property: 'tags', label: 'Tags'}
                     - {property: 'depositAmount', label: 'Acompte (€)'}
                     - {property: 'similarItemsNumber', label: 'Nombre de produits similaires'}

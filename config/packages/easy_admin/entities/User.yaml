@@ -20,7 +20,7 @@ easy_admin:
                 fields: &utilisateurFormFields
                     - {property: 'ID', label: 'Id', type: 'text', type_options: { disabled: true }}
                     - {property: 'email', label: 'email'}
-                    - {property: 'username', label: 'Pseudo', type_options: { disabled: true }}
+                    - {property: 'username', label: 'Pseudo'}
                     - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
                     - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
                     - {property: 'state', label: 'Etat', type_options: { disabled: true }}

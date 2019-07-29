@@ -1,0 +1,69 @@
+easy_admin:
+    entities:
+        Evaluation:
+            class: App\Entity\Rating
+            disabled_actions: ['delete', 'new']
+            search: &ratingSearch
+                fields: ['title', 'comment', 'code', 'editor.username', 'tenant.username', 'renter.username', 'rental.realItemName']
+            list:
+                fields: &ratingListFields
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'title', label: 'Titre'}
+                    - {property: 'globalRating', label: 'Note', format: '%.0F/5'}
+                    - {property: 'rental', label: 'Produit'}
+                    - {property: 'editor', label: 'Auteur'}
+                    - {property: 'renter', label: 'Loueur'}
+                    - {property: 'tenant', label: 'Locataire'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'enabled', label: 'Activé ?'}
+                actions: &ratingActions
+                    - {name: 'show', icon: 'eye', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+            form: &ratingForm
+                title: "Gestion des évaluations"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'rental', label: 'Location', type_options: { disabled: true }}
+                    - {property: 'editor', label: 'Editeur', type_options: { disabled: true }}
+                    - {property: 'renter', label: 'Loueur', type_options: { disabled: true }}
+                    - {property: 'tenant', label: 'Locataire', type_options: { disabled: true }}
+                    - {property: 'title', label: 'Titre', type_options: { disabled: true }}
+                    - {property: 'comment', label: 'Commentaire', type_options: { disabled: true }}
+                    - {property: 'globalRating', label: 'Note globale', format: '%.0F/5', type_options: { disabled: true }}
+                    - {property: 'punctualityRating', label: 'Ponctualité', format: '%.0F/5', type_options: { disabled: true }}
+                    - {property: 'itemQualityConditionRating', format: '%.0F/5', label: 'Qualité du produit', type_options: { disabled: true }}
+                    - {property: 'kindnessRating', format: '%.0F/5', label: 'Amabilité', type_options: { disabled: true }}
+                    - {property: 'enabled', label: 'Etat'}
+            show: *ratingForm
+        EvaluationEnAttente:
+            class: App\Entity\Rating
+            disabled_actions: ['delete', 'new']
+            search: *ratingSearch
+            list:
+                dql_filter: 'entity.enabled = 0'
+                fields: *ratingListFields
+                actions: *ratingActions
+            form: *ratingForm
+            show: *ratingForm
+        EvaluationLoueur:
+            class: App\Entity\Rating
+            disabled_actions: ['delete', 'new']
+            search: *ratingSearch
+            list:
+                dql_filter: 'entity.tenant = entity.editor'
+                fields: *ratingListFields
+                actions: *ratingActions
+            form: *ratingForm
+            show: *ratingForm
+        EvaluationLocataire:
+            class: App\Entity\Rating
+            disabled_actions: ['delete', 'new']
+            search: *ratingSearch
+            list:
+                dql_filter: 'entity.renter = entity.editor'
+                fields: *ratingListFields
+                actions: *ratingActions
+            form: *ratingForm
+            show: *ratingForm

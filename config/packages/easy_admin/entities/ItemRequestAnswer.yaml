@@ -1,0 +1,44 @@
+easy_admin:
+    entities:
+        Proposition:
+            class: App\Entity\ItemRequestAnswer
+            disabled_actions: ['delete']
+            search: &itemRequestAnswerSearch
+                fields: ['itemRequest.name', 'item.name']
+            list:
+                fields: &itemRequestAnswerListFields
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'itemRequest', label: 'Demande'}
+                    - {property: 'item', label: 'Proposition'}
+                    - {property: 'enabled', label: 'Activé ?'}
+                actions: &itemRequestAnswerActions
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form: &itemRequestAnswerForm
+                title: "Gestion des propositions d'objets"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'itemRequest', label: 'Demande'}
+                    - {property: 'item', label: 'Proposition'}
+                    - {property: 'enabled', label: 'Activé ?'}
+        PropositionEnLigne:
+            class: App\Entity\ItemRequestAnswer
+            disabled_actions: ['new', 'delete']
+            search: *itemRequestAnswerSearch
+            list:
+                dql_filter: 'entity.enabled = 1'
+                fields: *itemRequestAnswerListFields
+                actions: *itemRequestAnswerActions
+            form: *itemRequestAnswerForm
+        PropositionHorsLigne:
+            class: App\Entity\ItemRequestAnswer
+            disabled_actions: ['new', 'delete']
+            search: *itemRequestAnswerSearch
+            list:
+                dql_filter: 'entity.enabled = 0'
+                fields: *itemRequestAnswerListFields
+                actions: *itemRequestAnswerActions
+            form: *itemRequestAnswerForm

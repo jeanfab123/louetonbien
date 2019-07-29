@@ -1,20 +1,39 @@
 easy_admin:
     design:
         menu:
-            - label: 'Structure'
+            - label: 'Comptes'
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Zone',  label: 'Zones'}
-                  - {entity: 'Rubrique',  label: 'Rubriques'}
-                  - {entity: 'Categorie',  label: 'Catégories'}
-                  - {entity: 'Attribut',  label: 'Attributs'}
-                  - {entity: 'ValeurDAttribut',  label: "Valeurs d'attribut"}
+                  - {entity: 'Utilisateur',  label: 'Tous les comptes'}
+                  - {entity: 'UtilisateurNonValide',  label: 'Comptes non validés'}
+                  - {entity: 'UtilisateurValide',  label: 'Comptes validés'}
+                  - {entity: 'UtilisateurFerme',  label: 'Comptes fermés'}
+                  - {entity: 'UtilisateurSuspendu',  label: 'Comptes suspendus'}
+                  - {entity: 'UtilisateurBanni',  label: 'Comptes bannis'}
             - label: 'Gestion des produits'
               icon: 'newspaper-o'
               children:
                   - {entity: 'Produit',  label: 'Tous les produits'}
                   - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
                   - {entity: 'ProduitHorsLigne',  label: 'Produits hors ligne'}
+            - label: 'Locations'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Location',  label: 'Locations en attente *'}
+                  - {entity: 'Location',  label: 'Locations validées *'}
+                  - {entity: 'Location',  label: 'Locations terminées *'}
+                  - {entity: 'Location',  label: 'Annulées par le loueur *'}
+                  - {entity: 'Location',  label: 'Annulées par le locataire *'}
+                  - {entity: 'Location',  label: 'Locations désactivées *'}
+                  - {entity: 'Location',  label: 'Toutes les locations'}
+            - label: 'Evaluations'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'EvaluationEnAttente',  label: 'Evaluations en attente'}
+                  - {entity: 'EvaluationLoueur',  label: 'Evaluations des loueurs'}
+                  - {entity: 'EvaluationLocataire',  label: 'Evaluations des locataires'}
+                  - {entity: 'Evaluation',  label: 'Evaluations désactivées *'}
+                  - {entity: 'Evaluation',  label: 'Toutes les évaluations'}
             - label: 'Gestion des tags'
               icon: 'newspaper-o'
               children:
@@ -27,22 +46,25 @@ easy_admin:
                   - {entity: 'Demande',  label: "Toutes les demandes"}
                   - {entity: 'DemandeEnLigne',  label: "Demandes en ligne"}
                   - {entity: 'DemandeHorsLigne',  label: "Demandes hors ligne"}
-            - label: 'Comptes'
-              icon: 'newspaper-o'
-              children:
-                  - {entity: 'Utilisateur',  label: 'Tous les comptes'}
-                  - {entity: 'UtilisateurNonValide',  label: 'Comptes non validés'}
-                  - {entity: 'UtilisateurValide',  label: 'Comptes validés'}
-                  - {entity: 'UtilisateurFerme',  label: 'Comptes fermés'}
-                  - {entity: 'UtilisateurSuspendu',  label: 'Comptes suspendus'}
-                  - {entity: 'UtilisateurBanni',  label: 'Comptes bannis'}
+                  - {entity: 'DemandeNonPourvue',  label: "Demandes non pourvues *"}
+                  - {entity: 'PropositionHorsLigne',  label: "Propositions hors ligne"}
+                  - {entity: 'PropositionEnLigne',  label: "Propositions en ligne"}
+                  - {entity: 'Proposition',  label: "Toutes les propositions"}
             - label: 'Points de retrait'
               icon: 'newspaper-o'
               children:
                   - {entity: 'PointDeRetrait',  label: 'Tous les points de retrait'}
                   - {entity: 'PointDeRetraitJourHeure',  label: 'Toutes les tranches horaires'}
-            - label: 'Locations'
+            - label: 'Prix'
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Forfait',  label: 'Tous les forfaits'}
+                  - {entity: 'Forfait',  label: 'Les types de forfaits'}
                   - {entity: 'Prix',  label: 'Tous les prix des produits'}
+            - label: 'Structure'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: 'Zone',  label: 'Zones'}
+                  - {entity: 'Rubrique',  label: 'Rubriques'}
+                  - {entity: 'Categorie',  label: 'Catégories'}
+                  - {entity: 'Attribut',  label: 'Attributs'}
+                  - {entity: 'ValeurDAttribut',  label: "Valeurs d'attribut"}
