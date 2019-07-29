@@ -11,6 +11,7 @@ use Cocur\Slugify\Slugify;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
 class Category
@@ -23,7 +24,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
@@ -44,7 +45,7 @@ class Category
     private $rubric;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 

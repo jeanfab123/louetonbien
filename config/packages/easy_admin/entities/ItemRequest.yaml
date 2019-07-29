@@ -44,10 +44,13 @@ easy_admin:
             search:
                 fields: ['name', 'description']
             list:
-                dql_filter: 'entity.enabled = 0'
+                dql_filter: '(entity.enabled IS NULL or entity.enabled = 0)'
                 fields: *itemRequestListFields
                 actions: *itemRequestActions
             form: *itemRequestForm
+
+
+
         DemandeNonPourvue:
             class: App\Entity\ItemRequest
             disabled_actions: ['new', 'delete']

@@ -6,9 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntitySlugTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PickupPointRepository")
+ * @UniqueEntity("code")
  * @ORM\HasLifecycleCallbacks()
  */
 class PickupPoint
@@ -69,7 +71,7 @@ class PickupPoint
     private $pickupPointDayHours;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 

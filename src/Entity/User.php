@@ -14,6 +14,7 @@ use App\Entity\EntitySlugTrait;
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  * @UniqueEntity("slug")
+ * @UniqueEntity("code")
  * @ORM\HasLifecycleCallbacks()
  */
 class User implements UserInterface, \Serializable
@@ -37,7 +38,7 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=70)
+     * @ORM\Column(type="string", length=70, unique=true)
      */
     private $username;
 
@@ -47,7 +48,7 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $email;
 
@@ -72,7 +73,7 @@ class User implements UserInterface, \Serializable
     private $modifiedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -137,7 +138,7 @@ class User implements UserInterface, \Serializable
     private $pickupPoints;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 

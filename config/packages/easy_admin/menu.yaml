@@ -10,7 +10,7 @@ easy_admin:
                   - {entity: 'UtilisateurFerme',  label: 'Comptes fermés'}
                   - {entity: 'UtilisateurSuspendu',  label: 'Comptes suspendus'}
                   - {entity: 'UtilisateurBanni',  label: 'Comptes bannis'}
-            - label: 'Gestion des produits'
+            - label: 'Produits'
               icon: 'newspaper-o'
               children:
                   - {entity: 'Produit',  label: 'Tous les produits'}
@@ -34,13 +34,13 @@ easy_admin:
                   - {entity: 'EvaluationLocataire',  label: 'Evaluations des locataires'}
                   - {entity: 'Evaluation',  label: 'Evaluations désactivées *'}
                   - {entity: 'Evaluation',  label: 'Toutes les évaluations'}
-            - label: 'Gestion des tags'
+            - label: 'Tags'
               icon: 'newspaper-o'
               children:
                   - {entity: 'Tag',  label: 'Tous les tags'}
                   - {entity: 'TagSimple',  label: 'Tags simples'}
                   - {entity: 'TagCat',  label: 'Tags liés aux rubriques'}
-            - label: 'Gestion des demandes'
+            - label: "Demandes d'objets"
               icon: 'newspaper-o'
               children:
                   - {entity: 'Demande',  label: "Toutes les demandes"}

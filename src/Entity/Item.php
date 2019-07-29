@@ -12,6 +12,8 @@ use App\Entity\EntitySlugTrait;
  * @ORM\Entity(repositoryClass="App\Repository\ItemRepository")
  * @UniqueEntity("name")
  * @UniqueEntity("subtitle")
+ * @UniqueEntity("slug")
+ * @UniqueEntity("code")
  * @ORM\HasLifecycleCallbacks()
  */
 class Item
@@ -52,7 +54,7 @@ class Item
     private $modifiedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 
@@ -73,7 +75,7 @@ class Item
     private $depositAmount;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
      */
     private $subtitle;
 
@@ -93,7 +95,7 @@ class Item
     private $prices;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 
@@ -103,7 +105,7 @@ class Item
     private $viewsNumber;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean", options={"default" : false})
      */
     private $enabled;
 

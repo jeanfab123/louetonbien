@@ -5,10 +5,14 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use App\Entity\EntitySlugTrait;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRequestRepository")
+ * @UniqueEntity("name")
+ * @UniqueEntity("code")
+ * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
 class ItemRequest
@@ -24,7 +28,7 @@ class ItemRequest
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
@@ -34,12 +38,12 @@ class ItemRequest
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 

@@ -11,6 +11,7 @@ use Cocur\Slugify\Slugify;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RubricRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
 class Rubric
@@ -28,7 +29,7 @@ class Rubric
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
@@ -38,7 +39,7 @@ class Rubric
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 

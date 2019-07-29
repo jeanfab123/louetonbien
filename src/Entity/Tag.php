@@ -11,6 +11,7 @@ use Cocur\Slugify\Slugify;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @UniqueEntity("name")
+ * @UniqueEntity("slug")
  * @ORM\HasLifecycleCallbacks()
  */
 class Tag
@@ -23,12 +24,12 @@ class Tag
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 

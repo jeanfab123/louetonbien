@@ -4,7 +4,7 @@ easy_admin:
             class: App\Entity\Item
             disabled_actions: ['delete']
             search: &itemSearch
-                fields: ['name', 'description']
+                fields: ['name', 'description', 'code']
             list:
                 fields: &itemListFields
                     - {property: 'id', label: 'ID'}
@@ -52,7 +52,7 @@ easy_admin:
             disabled_actions: ['new', 'delete']
             search: *itemSearch
             list:
-                dql_filter: 'entity.enabled = 0'
+                dql_filter: '(entity.enabled IS NULL or entity.enabled = 0)'
                 fields: *itemListFields
                 actions: *itemActions
             form: *itemForm

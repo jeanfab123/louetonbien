@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ItemRequestAnswerRepository")
+ * @UniqueEntity("code")
  * @UniqueEntity("duplicateCheckField")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -41,7 +42,7 @@ class ItemRequestAnswer
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 

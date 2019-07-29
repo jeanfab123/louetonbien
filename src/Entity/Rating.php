@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\EntitySlugTrait;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RatingRepository")
+ * @UniqueEntity("code")
  * @ORM\HasLifecycleCallbacks()
  */
 class Rating
@@ -46,7 +48,7 @@ class Rating
     private $tenant;
 
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string", length=30, unique=true)
      */
     private $code;
 
