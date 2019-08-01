@@ -13,18 +13,19 @@ easy_admin:
             - label: 'Produits'
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Produit',  label: 'Tous les produits'}
-                  - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
                   - {entity: 'ProduitHorsLigne',  label: 'Produits hors ligne'}
+                  - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
+                  - {entity: 'ProduitDesactive',  label: 'Produits désactivés *'}
+                  - {entity: 'Produit',  label: 'Tous les produits'}
             - label: 'Locations'
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Location',  label: 'Locations en attente *'}
-                  - {entity: 'Location',  label: 'Locations validées *'}
-                  - {entity: 'Location',  label: 'Locations terminées *'}
-                  - {entity: 'Location',  label: 'Annulées par le loueur *'}
-                  - {entity: 'Location',  label: 'Annulées par le locataire *'}
-                  - {entity: 'Location',  label: 'Locations désactivées *'}
+                  - {entity: 'LocationEnAttente',  label: 'Locations en attente'}
+                  - {entity: 'LocationValidee',  label: 'Locations validées'}
+                  - {entity: 'LocationTerminee',  label: 'Locations terminées'}
+                  - {entity: 'LocationAnnuleeLoueur',  label: 'Annulées par le propriétaire'}
+                  - {entity: 'LocationAnnuleeLocataire',  label: 'Annulées par le locataire'}
+                  - {entity: 'LocationDesactivee',  label: 'Locations désactivées'}
                   - {entity: 'Location',  label: 'Toutes les locations'}
             - label: 'Evaluations'
               icon: 'newspaper-o'
@@ -43,10 +44,13 @@ easy_admin:
             - label: "Demandes d'objets"
               icon: 'newspaper-o'
               children:
-                  - {entity: 'Demande',  label: "Toutes les demandes"}
-                  - {entity: 'DemandeEnLigne',  label: "Demandes en ligne"}
                   - {entity: 'DemandeHorsLigne',  label: "Demandes hors ligne"}
                   - {entity: 'DemandeNonPourvue',  label: "Demandes non pourvues *"}
+                  - {entity: 'DemandeEnLigne',  label: "Demandes en ligne"}
+                  - {entity: 'Demande',  label: "Toutes les demandes"}
+            - label: "Propositions d'objets"
+              icon: 'newspaper-o'
+              children:
                   - {entity: 'PropositionHorsLigne',  label: "Propositions hors ligne"}
                   - {entity: 'PropositionEnLigne',  label: "Propositions en ligne"}
                   - {entity: 'Proposition',  label: "Toutes les propositions"}
@@ -68,3 +72,4 @@ easy_admin:
                   - {entity: 'Categorie',  label: 'Catégories'}
                   - {entity: 'Attribut',  label: 'Attributs'}
                   - {entity: 'ValeurDAttribut',  label: "Valeurs d'attribut"}
+            - label: 'Env: %env(APP_ENV)%'

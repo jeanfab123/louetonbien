@@ -113,7 +113,7 @@ class User implements UserInterface, \Serializable
     private $tags;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="User")
+     * @ORM\OneToMany(targetEntity="App\Entity\Item", mappedBy="user")
      */
     private $items;
 
@@ -216,6 +216,8 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="array")
      */
     private $roles = [];
+
+    private $fullname;
 
     /**
      * @ORM\PrePersist
@@ -958,7 +960,19 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    public function __toString()
+    public function getFullname(): string
+    {
+        return $this->fullname;
+    }
+
+    public function setFullname(string $fullname): self
+    {
+        $this->fullname = $fullname;
+
+        return $this;
+    }
+
+    public function __toString(): string
     {
         return $this->username;
     }

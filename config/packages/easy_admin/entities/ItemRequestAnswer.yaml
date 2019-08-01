@@ -35,10 +35,13 @@ easy_admin:
             form: *itemRequestAnswerForm
         PropositionHorsLigne:
             class: App\Entity\ItemRequestAnswer
-            disabled_actions: ['new', 'delete']
+            disabled_actions: ['new']
             search: *itemRequestAnswerSearch
             list:
                 dql_filter: 'entity.enabled = 0'
                 fields: *itemRequestAnswerListFields
-                actions: *itemRequestAnswerActions
+#                actions: *itemRequestAnswerActions
+                actions:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'd-none'}
             form: *itemRequestAnswerForm

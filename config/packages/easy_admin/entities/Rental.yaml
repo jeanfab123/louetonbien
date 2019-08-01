@@ -2,28 +2,96 @@ easy_admin:
     entities:
         Location:
             class: App\Entity\Rental
-            disabled_actions: ['delete', 'edit', 'new']
+            disabled_actions: ['delete', 'new']
             search: &rentalSearch
-                fields: ['rental.item.name', 'code']
+                fields: ['item.name', 'code', 'tenant.username', 'renter.username']
             list:
                 fields: &rentalListFields
                     - {property: 'id', label: 'ID'}
-                    - {property: 'code', label: 'Code'}
-                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/y'}
+#                    - {property: 'code', label: 'Code'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
                     - {property: 'realItemName', label: 'Produit'}
-                    - {property: 'renter', label: 'Loueur'}
-                    - {property: 'tenant', label: 'Locataire'}
+#                    - {property: 'renter', label: 'Loueur'}
+#                    - {property: 'tenant', label: 'Locataire'}
                     - {property: 'amount', label: 'Montant', format: '%.0F €'}
-                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'beginDate', label: 'Début', format: 'd/m/Y'}
+                    - {property: 'endDate', label: 'Fin', format: 'd/m/Y'}
+                    - {property: 'state', label: 'Etat', template: 'admin/_parts/rental_state.html.twig'}
                 actions: &rentalActions
                     - {name: 'view', icon: 'eye', label: false, css_class: 'btn btn-secondary'}
-            view:
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-primary'}
+            form: &rentalFormFields
                 title: "Gestion des évaluations"
-                fields: &rentalList
+                fields:
                     - {property: 'id', label: 'ID', type_options: { disabled: true }}
                     - {property: 'code', label: 'Code', type_options: { disabled: true }}
                     - {property: 'createdAt', label: 'Créé le', format: 'd/m/y', type_options: { disabled: true }}
                     - {property: 'renter', label: 'Loueur', type_options: { disabled: true }}
                     - {property: 'tenant', label: 'Locataire', type_options: { disabled: true }}
+                    - {property: 'beginDate', label: 'Début', format: 'd/m/Y', type_options: { disabled: true }}
+                    - {property: 'endDate', label: 'Fin', format: 'd/m/Y', type_options: { disabled: true }}
                     - {property: 'amount', label: 'Montant', format: '%.0F €', type_options: { disabled: true }}
-                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type: 'choice', type_options: { choices: {'En attente': 'WAITING', 'Validé par le loueur': 'VALIDATED_BY_RENTER', 'Annulé par le loueur': 'CANCELLED_BY_RENTER', 'Annulé par le locataire': 'CANCELLED_BY_TENANT', "Annulé par l'administrateur": 'CANCELLED_BY_ADMIN'}}}
+            view: &rentalView
+                title: "Gestion des évaluations"
+                fields: *rentalListFields
+        LocationEnAttente:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'WAITING'"
+                fields: *rentalListFields
+                actions: *rentalActions
+            form: *rentalFormFields
+            view: *rentalView
+        LocationValidee:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'VALIDATED_BY_RENTER'"
+                fields: *rentalListFields
+                actions: *rentalActions
+            form: *rentalFormFields
+            view: *rentalView
+        LocationAnnuleeLoueur:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'CANCELLED_BY_RENTER'"
+                fields: *rentalListFields
+                actions: *rentalActions
+            form: *rentalFormFields
+            view: *rentalView
+        LocationAnnuleeLocataire:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'CANCELLED_BY_TENANT'"
+                fields: *rentalListFields
+                actions: *rentalActions
+            form: *rentalFormFields
+            view: *rentalView
+        LocationDesactivee:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'CANCELLED_BY_ADMIN'"
+                fields: *rentalListFields
+                actions: *rentalActions  
+            form: *rentalFormFields
+            view: *rentalView
+        LocationTerminee:
+            class: App\Entity\Rental
+            disabled_actions: ['delete', 'new']
+            search: *rentalSearch
+            list:
+                dql_filter: "entity.state = 'VALIDATED_BY_RENTER' and entity.endDate < CURRENT_DATE()"
+                fields: *rentalListFields
+                actions: *rentalActions
+            form: *rentalFormFields
+            view: *rentalView

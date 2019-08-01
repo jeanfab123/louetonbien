@@ -10,7 +10,7 @@ easy_admin:
                     - {property: 'pickupPoint.user.username', label: 'Utilisateur'}
                     - {property: 'pickupPoint.user.email', label: 'Email'}
                     - {property: 'pickupPoint', label: 'Point de retrait'}
-                    - {property: 'day', label: 'Jour', format: '%.0f'}
+                    - {property: 'day', label: 'Jour', format: '%.0f', template: 'admin/_parts/week_days_format.html.twig'}
                     - {property: 'begin', label: 'Heure de début'}
                     - {property: 'end', label: 'Heure de fin'}
                 actions:
@@ -21,6 +21,6 @@ easy_admin:
                 fields:
                     - {property: 'id', label: 'ID', type_options: { disabled: true }}
                     - {property: 'pickupPoint', label: 'Point de retrait'}
-                    - {property: 'day', label: 'Jour', format: '%.0f'}
+                    - {property: 'day', label: 'Jour', type: 'choice', type_options: { choices: {'Lundi': '1', 'Mardi': '2', 'Mercredi': '3', 'Jeudi': '4', 'Vendredi': '5', 'Samedi': '6', 'Dimanche': '0'} } }
                     - {property: 'begin', label: 'Heure de début'}
                     - {property: 'end', label: 'Heure de fin'}

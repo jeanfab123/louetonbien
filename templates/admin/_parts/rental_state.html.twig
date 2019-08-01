@@ -1,0 +1,28 @@
+{% if ((view == 'show') or (view == 'list')) %}
+
+{% if (value == 'WAITING') %}
+{% set btn_type_r = 'info' %}
+{% set btn_type_t = 'success' %}
+{% elseif (value == 'VALIDATED_BY_RENTER') %}
+{% set btn_type_r = 'success' %}
+{% set btn_type_t = 'success' %}
+{% elseif (value == 'CANCELLED_BY_RENTER') %}
+{% set btn_type_r = 'danger' %}
+{% set btn_type_t = 'success' %}
+{% elseif (value == 'CANCELLED_BY_TENANT') %}
+{% set btn_type_r = 'info' %}
+{% set btn_type_t = 'danger' %}
+{% endif %}
+
+{% if (value != 'CANCELLED_BY_ADMIN') %}
+<div class="btn btn-{{btn_type_t}}">T</div>
+<div class="btn btn-{{btn_type_r}}">R</div>
+{% else %}
+<div class="btn btn-danger">A</div>
+{% endif %}
+
+{% else %}
+
+{{ value }}
+
+{% endif %}

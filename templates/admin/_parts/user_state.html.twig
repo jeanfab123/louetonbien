@@ -1,0 +1,25 @@
+{% if ((view == 'show') or (view == 'list')) %}
+
+{% if (value == 'UNVALIDATED') %}
+{% set lValue = 'N' %}
+{% set btn_type = 'info' %}
+{% elseif (value == 'VALIDATED') %}
+{% set lValue = 'V' %}
+{% set btn_type = 'success' %}
+{% elseif (value == 'SUSPENDED') %}
+{% set lValue = 'S' %}
+{% set btn_type = 'warning' %}
+{% elseif (value == 'BANNED') %}
+{% set lValue = 'B' %}
+{% set btn_type = 'danger' %}
+{% elseif (value == 'CLOSED') %}
+{% set lValue = 'X' %}
+{% set btn_type = 'default' %}
+{% endif %}
+<div class="btn btn-{{btn_type}}">{{ lValue }}</div>
+
+{% else %}
+
+{{ value }}
+
+{% endif %}

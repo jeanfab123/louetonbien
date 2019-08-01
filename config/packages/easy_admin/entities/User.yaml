@@ -11,7 +11,7 @@ easy_admin:
                     - {property: 'lastname', label: 'Nom'}
                     - {property: 'firstname', label: 'Prénom'}
                     - {property: 'createdAt', label: 'Inscrit le'}
-                    - {property: 'state', label: '&Eacute;tat'}
+                    - {property: 'state', label: '&Eacute;tat', template: 'admin/_parts/user_state.html.twig'}
                 actions: &utilisateurActions
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
                     - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
@@ -23,7 +23,7 @@ easy_admin:
                     - {property: 'username', label: 'Pseudo'}
                     - {property: 'code', label: 'Code', type_options: { disabled: true }, help: 'Code unique'}
                     - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
-                    - {property: 'state', label: 'Etat', type_options: { disabled: true }}
+                    - {property: 'state', label: 'Etat', type: 'choice', type_options: { choices: {'Non validé':'UNVALIDATED', 'Validé': 'VALIDATED', 'Suspendu': 'SUSPENDED', 'Fermé': 'CLOSED', 'Banni': 'BANNED'} } }
                     - {property: 'lastname', label: 'Nom'}
                     - {property: 'firstname', label: 'Prénom'}
                     - {property: 'address', label: 'Adresse'}
@@ -39,6 +39,9 @@ easy_admin:
                     - {property: 'ratingsAsTenant', label: 'Notes (locataire)', type_options: { disabled: true }}
                     - {property: 'itemRequests', label: "Demande d'objets", type_options: { disabled: true }}
                     - {property: 'userUnavailableDates', label: "Dates d'indisponibilité", type_options: { disabled: true }}
+            show: 
+                title: "Vue d'un utilisateur"
+                fields: *utilisateurFormFields
         UtilisateurNonValide:
             class: App\Entity\User
             disabled_actions: ['new', 'delete']

@@ -8,12 +8,13 @@ easy_admin:
             list:
                 fields: &itemListFields
                     - {property: 'id', label: 'ID'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
                     - {property: 'name', label: 'Nom'}
                     - {property: 'category', label: 'Catégories'}
                     - {property: 'attributeValue', label: 'Attributs'}
                     - {property: 'tags', label: 'Tags'}
                     - {property: 'rentals', label: 'Locations'}
-                    - {property: 'viewsNumber', label: 'Nombre de vues'}
+                    - {property: 'viewsNumber', label: 'Vues', format: '%.0f vues'}
                     - {property: 'enabled', label: 'Activé ?'}
                 actions: &itemActions
                     - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
@@ -53,6 +54,15 @@ easy_admin:
             search: *itemSearch
             list:
                 dql_filter: '(entity.enabled IS NULL or entity.enabled = 0)'
+                fields: *itemListFields
+                actions: *itemActions
+            form: *itemForm
+        ProduitDesactive:
+            class: App\Entity\Item
+            disabled_actions: ['new', 'delete']
+            search: *itemSearch
+            list:
+                dql_filter: "entity.disabledAt != '' AND entity.enabled != 1"
                 fields: *itemListFields
                 actions: *itemActions
             form: *itemForm
