@@ -145,6 +145,11 @@ class Item
     private $itemRequestAnswers;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFile", mappedBy="item")
+     */
+    private $itemFiles;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -177,6 +182,7 @@ class Item
         $this->userUnavailableDates = new ArrayCollection();
         $this->attributeValue = new ArrayCollection();
         $this->itemRequestAnswers = new ArrayCollection();
+        $this->itemFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -612,6 +618,37 @@ class Item
             // set the owning side to null (unless already changed)
             if ($itemRequestAnswer->getItem() === $this) {
                 $itemRequestAnswer->setItem(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFile[]
+     */
+    public function getItemFiles(): Collection
+    {
+        return $this->itemFiles;
+    }
+
+    public function addItemFile(UserFile $itemFile): self
+    {
+        if (!$this->itemFiles->contains($itemFile)) {
+            $this->itemFiles[] = $itemFile;
+            $itemFile->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemFile(UserFile $itemFile): self
+    {
+        if ($this->itemFiles->contains($itemFile)) {
+            $this->itemFiles->removeElement($itemFile);
+            // set the owning side to null (unless already changed)
+            if ($itemFile->getItem() === $this) {
+                $itemFile->setItem(null);
             }
         }
 

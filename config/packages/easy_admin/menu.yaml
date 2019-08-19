@@ -1,6 +1,10 @@
 easy_admin:
     design:
         menu:
+            - label: Dashboard
+              icon: dashboard
+              route: admin_dashboard
+              default: true
             - label: 'Comptes'
               icon: 'newspaper-o'
               children:
@@ -17,6 +21,10 @@ easy_admin:
                   - {entity: 'ProduitEnLigne',  label: 'Produits en ligne'}
                   - {entity: 'ProduitDesactive',  label: 'Produits désactivés *'}
                   - {entity: 'Produit',  label: 'Tous les produits'}
+                  - {entity: 'ImageProduitHorsLigne',  label: 'Images hors ligne'}
+                  - {entity: 'ImageProduitEnLigne',  label: 'Images en ligne'}
+                  - {entity: 'ImageProduitDesactivee',  label: 'Images désactivées'}
+                  - {entity: 'ImageProduit',  label: 'Toutes les images'}
             - label: 'Locations'
               icon: 'newspaper-o'
               children:

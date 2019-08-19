@@ -220,6 +220,11 @@ class User implements UserInterface, \Serializable
     private $fullname;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFile", mappedBy="user")
+     */
+    private $userFiles;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -260,6 +265,7 @@ class User implements UserInterface, \Serializable
         $this->userUnavailableDates = new ArrayCollection();
         $this->potentialRenterItemRequestAnswers = new ArrayCollection();
         $this->requesterItemRequestAnswers = new ArrayCollection();
+        $this->userFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -975,5 +981,36 @@ class User implements UserInterface, \Serializable
     public function __toString(): string
     {
         return $this->username;
+    }
+
+    /**
+     * @return Collection|UserFile[]
+     */
+    public function getUserFiles(): Collection
+    {
+        return $this->userFiles;
+    }
+
+    public function addUserFile(UserFile $userFile): self
+    {
+        if (!$this->userFiles->contains($userFile)) {
+            $this->userFiles[] = $userFile;
+            $userFile->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFile(UserFile $userFile): self
+    {
+        if ($this->userFiles->contains($userFile)) {
+            $this->userFiles->removeElement($userFile);
+            // set the owning side to null (unless already changed)
+            if ($userFile->getUser() === $this) {
+                $userFile->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

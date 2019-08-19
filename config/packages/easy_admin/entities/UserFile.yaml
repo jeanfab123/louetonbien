@@ -1,0 +1,64 @@
+easy_admin:
+    entities:
+        Fichier:
+            class: App\Entity\UserFile
+            disabled_actions: ['delete']
+            search: &userFileSearch
+                fields: ['name', 'title']
+            list:
+                fields: &userFileListFields
+                    - {property: 'id', label: 'ID'}
+                    - {property: 'createdAt', label: 'Créé le', format: 'd/m/Y'}
+                    - {property: 'user', label: 'Utilisateur'}
+                    - {property: 'item', label: 'Proposition'}
+                    - {property: 'itemRequest', label: 'Demande'}
+                    - {property: 'enabled', label: 'Activé ?'}
+                actions: &userFileActions
+                    - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+                    - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+            form: &userFileForm
+                title: "Gestion des fichiers"
+                fields:
+                    - {property: 'id', label: 'ID', type_options: { disabled: true }}
+                    - {property: 'code', label: 'Code', type_options: { disabled: true }}
+                    - {property: 'createdAt', label: 'Créé le', type_options: { disabled: true }}
+                    - {property: 'user', label: 'Utilisateur'}
+                    - {property: 'item', label: 'Proposition'}
+                    - {property: 'itemRequest', label: 'Demande'}
+                    - {property: 'enabled', label: 'Activé ?'}
+        ImageProduitHorsLigne:
+            class: App\Entity\UserFile
+            disabled_actions: ['new', 'delete']
+            search: *userFileSearch
+            list:
+                dql_filter: "entity.enabled = 0 AND entity.createdFor = 'ITEM' AND entity.disabledAt IS NULL"
+                fields: *userFileListFields
+                actions: *userFileActions
+            form: *userFileForm
+        ImageProduitEnLigne:
+            class: App\Entity\UserFile
+            disabled_actions: ['new', 'delete']
+            search: *userFileSearch
+            list:
+                dql_filter: "entity.enabled = 1 AND entity.createdFor = 'ITEM'"
+                fields: *userFileListFields
+                actions: *userFileActions
+            form: *userFileForm
+        ImageProduitDesactivee:
+            class: App\Entity\UserFile
+            disabled_actions: ['new', 'delete']
+            search: *userFileSearch
+            list:
+                dql_filter: "entity.enabled = 0 AND entity.createdFor = 'ITEM' AND entity.disabledAt IS NOT NULL"
+                fields: *userFileListFields
+                actions: *userFileActions
+            form: *userFileForm
+        ImageProduit:
+            class: App\Entity\UserFile
+            disabled_actions: ['new', 'delete']
+            search: *userFileSearch
+            list:
+                dql_filter: "entity.createdFor = 'ITEM'"
+                fields: *userFileListFields
+                actions: *userFileActions
+            form: *userFileForm

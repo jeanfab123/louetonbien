@@ -99,6 +99,11 @@ class ItemRequest
     private $itemRequestAnswers;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserFile", mappedBy="itemRequest")
+     */
+    private $itemRequestFiles;
+
+    /**
      * @ORM\PrePersist
      * 
      * @return void
@@ -126,6 +131,7 @@ class ItemRequest
         $this->rubric = new ArrayCollection();
         $this->area = new ArrayCollection();
         $this->itemRequestAnswers = new ArrayCollection();
+        $this->itemRequestFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -361,6 +367,37 @@ class ItemRequest
             // set the owning side to null (unless already changed)
             if ($itemRequestAnswer->getItemRequest() === $this) {
                 $itemRequestAnswer->setItemRequest(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFile[]
+     */
+    public function getItemRequestFiles(): Collection
+    {
+        return $this->itemRequestFiles;
+    }
+
+    public function addItemRequestFile(UserFile $itemRequestFile): self
+    {
+        if (!$this->itemRequestFiles->contains($itemRequestFile)) {
+            $this->itemRequestFiles[] = $itemRequestFile;
+            $itemRequestFile->setItemRequest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItemRequestFile(UserFile $itemRequestFile): self
+    {
+        if ($this->itemRequestFiles->contains($itemRequestFile)) {
+            $this->itemRequestFiles->removeElement($itemRequestFile);
+            // set the owning side to null (unless already changed)
+            if ($itemRequestFile->getItemRequest() === $this) {
+                $itemRequestFile->setItemRequest(null);
             }
         }
 
